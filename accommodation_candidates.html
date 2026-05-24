@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北海道住宿候選清單 2026</title>
+<style>
+  :root {
+    --primary: #1a5276;
+    --primary-light: #2980b9;
+    --accent: #e67e22;
+    --accent-light: #f0a500;
+    --success: #27ae60;
+    --warning: #f39c12;
+    --danger: #e74c3c;
+    --bg: #f4f6f8;
+    --card-bg: #ffffff;
+    --text: #2c3e50;
+    --text-muted: #7f8c8d;
+    --border: #dce3ea;
+    --selected-bg: #eafaf1;
+    --selected-border: #27ae60;
+    --shadow: 0 2px 8px rgba(0,0,0,0.08);
+    --shadow-hover: 0 6px 20px rgba(0,0,0,0.13);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* Header */
+  header {
+    background: linear-gradient(135deg, var(--primary) 0%, #154360 100%);
+    color: white;
+    padding: 28px 24px 20px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  header h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: 0.5px; }
+  header .subtitle { font-size: 0.85rem; opacity: 0.8; margin-top: 4px; }
+  .header-meta {
+    display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap;
+  }
+  .meta-badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.78rem;
+    display: flex; align-items: center; gap: 5px;
+  }
+
+  /* Summary bar */
+  .summary-bar {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+    display: flex; gap: 20px; align-items: center; flex-wrap: wrap;
+    font-size: 0.82rem;
+  }
+  .summary-item { display: flex; align-items: center; gap: 6px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .dot-selected { background: var(--success); }
+  .dot-candidate { background: var(--primary-light); }
+  .dot-note { background: var(--warning); }
+
+  /* Main content */
+  main { max-width: 960px; margin: 0 auto; padding: 24px 16px 60px; }
+
+  /* City section */
+  .city-section { margin-bottom: 36px; }
+  .city-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 14px;
+  }
+  .city-tag {
+    background: var(--primary);
+    color: white;
+    border-radius: 6px;
+    padding: 5px 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .city-dates {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3px 12px;
+  }
+  .city-nights {
+    font-size: 0.78rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-left: auto;
+  }
+  .city-status {
+    font-size: 0.78rem;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+  .status-confirmed { background: #d5f5e3; color: var(--success); }
+  .status-pending { background: #fef9e7; color: var(--warning); }
+
+  /* Hotel card */
+  .hotel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+  }
+  .hotel-card {
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    position: relative;
+    box-shadow: var(--shadow);
+  }
+  .hotel-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+  .hotel-card.selected {
+    border-color: var(--selected-border);
+    background: var(--selected-bg);
+    box-shadow: 0 4px 16px rgba(39,174,96,0.15);
+  }
+  .hotel-card.selected::before {
+    content: "✓ 已選擇";
+    position: absolute;
+    top: -1px; right: -1px;
+    background: var(--success);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 0 10px 0 8px;
+    letter-spacing: 0.5px;
+  }
+  .hotel-card.booked {
+    border-color: #1a5276;
+    background: linear-gradient(135deg, #eaf2ff 0%, #f8fbff 100%);
+    box-shadow: 0 4px 16px rgba(26,82,118,0.15);
+  }
+  .booked-banner {
+    display: flex; align-items: center; gap: 8px;
+    background: #1a5276;
+    color: white;
+    border-radius: 8px;
+    padding: 6px 10px;
+    margin: 8px 0 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .booked-banner .conf-no {
+    background: rgba(255,255,255,0.2);
+    border-radius: 4px;
+    padding: 1px 8px;
+    font-family: monospace;
+    letter-spacing: 1px;
+  }
+
+  /* Card header row */
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+  .hotel-name { font-size: 0.98rem; font-weight: 700; line-height: 1.35; flex: 1; }
+  .hotel-name small { display: block; font-size: 0.75rem; color: var(--text-muted); font-weight: 400; margin-top: 2px; }
+
+  .tier-badge {
+    font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 10px;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .tier-luxury { background: #fdebd0; color: #a04000; }
+  .tier-upscale { background: #d6eaf8; color: #1a5276; }
+  .tier-midscale { background: #e8f8f5; color: #1a6b5a; }
+  .tier-budget { background: #f2f3f4; color: #566573; }
+  .tier-special { background: #f9ebea; color: #922b21; }
+
+  /* Stars */
+  .stars { font-size: 0.8rem; color: var(--accent-light); margin: 6px 0 4px; }
+
+  /* Price row */
+  .price-row {
+    display: flex; align-items: baseline; gap: 6px; margin: 8px 0;
+    flex-wrap: wrap;
+  }
+  .price-main { font-size: 1.1rem; font-weight: 700; color: var(--danger); }
+  .price-per { font-size: 0.72rem; color: var(--text-muted); }
+  .price-total { font-size: 0.78rem; background: #fef9e7; border: 1px solid #f7dc6f; border-radius: 8px; padding: 2px 8px; color: #7d6608; font-weight: 600; }
+
+  /* Tags */
+  .tags { display: flex; flex-wrap: wrap; gap: 5px; margin: 8px 0 10px; }
+  .tag {
+    font-size: 0.68rem; padding: 2px 8px; border-radius: 10px;
+    background: #eaf2ff; color: #2471a3; border: 1px solid #d6e8fb;
+    white-space: nowrap;
+  }
+  .tag.onsen { background: #fef0f0; color: #cb4335; border-color: #fadbd8; }
+  .tag.nature { background: #eafaf1; color: #1e8449; border-color: #d5f5e3; }
+  .tag.city { background: #f4ecf7; color: #7d3c98; border-color: #e8daef; }
+  .tag.transport { background: #fef9e7; color: #b7950b; border-color: #fdebd0; }
+  .tag.food { background: #fdf2e9; color: #a04000; border-color: #fad7a0; }
+  .tag.elderly { background: #e8f8f5; color: #117a65; border-color: #a9dfbf; }
+
+  /* Pros/cons */
+  .pros-cons { font-size: 0.75rem; margin: 6px 0; }
+  .pros-cons li { list-style: none; padding: 1px 0; }
+  .pro::before { content: "＋ "; color: var(--success); font-weight: 700; }
+  .con::before { content: "－ "; color: var(--danger); font-weight: 700; }
+
+  /* Action row */
+  .card-actions { display: flex; gap: 8px; margin-top: 12px; }
+  .btn-select {
+    flex: 1;
+    padding: 7px 0;
+    border: 2px solid var(--primary-light);
+    background: white;
+    color: var(--primary-light);
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-select:hover { background: var(--primary-light); color: white; }
+  .hotel-card.selected .btn-select {
+    border-color: var(--success);
+    color: var(--success);
+  }
+  .hotel-card.selected .btn-select:hover { background: var(--success); color: white; }
+
+  .btn-link {
+    padding: 7px 12px;
+    background: #f2f3f4;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    text-decoration: none;
+    display: flex; align-items: center; gap: 4px;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .btn-link:hover { background: #dce3ea; color: var(--text); }
+  .hotel-url-row {
+    margin: 4px 0 2px;
+    font-size: 0.72rem;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .hotel-url-row a {
+    color: var(--primary-light);
+    text-decoration: none;
+    word-break: break-all;
+  }
+  .hotel-url-row a:hover { text-decoration: underline; }
+
+  /* Notes */
+  .note-section { margin-top: 10px; }
+  .note-toggle {
+    font-size: 0.73rem; color: var(--text-muted); cursor: pointer;
+    display: flex; align-items: center; gap: 4px;
+    background: none; border: none; padding: 2px 0;
+  }
+  .note-toggle:hover { color: var(--primary-light); }
+  .note-area {
+    display: none;
+    margin-top: 6px;
+  }
+  .note-area.open { display: block; }
+  .note-area textarea {
+    width: 100%;
+    min-height: 64px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 0.78rem;
+    font-family: inherit;
+    resize: vertical;
+    color: var(--text);
+    transition: border 0.15s;
+  }
+  .note-area textarea:focus { outline: none; border-color: var(--primary-light); }
+
+  /* Add custom hotel */
+  .add-hotel-btn {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%;
+    padding: 14px;
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    margin-top: 4px;
+  }
+  .add-hotel-btn:hover { border-color: var(--primary-light); color: var(--primary-light); background: #f0f6fc; }
+
+  /* Add hotel form */
+  .add-form {
+    display: none;
+    background: white;
+    border: 2px solid var(--primary-light);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 4px;
+  }
+  .add-form.open { display: block; }
+  .add-form h4 { font-size: 0.88rem; margin-bottom: 12px; color: var(--primary); }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .form-group { display: flex; flex-direction: column; gap: 4px; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-group label { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; }
+  .form-group input, .form-group select {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 8px;
+    font-size: 0.8rem;
+    font-family: inherit;
+  }
+  .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--primary-light); }
+  .form-actions { display: flex; gap: 8px; margin-top: 12px; }
+  .btn-add-confirm {
+    flex: 1; padding: 8px; background: var(--primary); color: white;
+    border: none; border-radius: 8px; font-size: 0.82rem; font-weight: 600; cursor: pointer;
+  }
+  .btn-add-confirm:hover { background: var(--primary-light); }
+  .btn-add-cancel {
+    padding: 8px 16px; background: #f2f3f4; border: none; border-radius: 8px;
+    font-size: 0.82rem; cursor: pointer; color: var(--text-muted);
+  }
+
+  /* Floating summary */
+  .float-summary {
+    position: fixed;
+    bottom: 20px; right: 20px;
+    background: var(--primary);
+    color: white;
+    border-radius: 12px;
+    padding: 12px 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    font-size: 0.8rem;
+    min-width: 180px;
+    z-index: 200;
+    transition: all 0.2s;
+  }
+  .float-summary h4 { font-size: 0.78rem; opacity: 0.8; margin-bottom: 6px; }
+  .float-summary-item { display: flex; justify-content: space-between; margin: 3px 0; }
+  .float-summary-item .name { opacity: 0.85; }
+  .float-summary-item .val { font-weight: 700; color: #f9ca24; }
+  .float-total {
+    border-top: 1px solid rgba(255,255,255,0.2);
+    margin-top: 8px;
+    padding-top: 8px;
+    display: flex; justify-content: space-between;
+    font-weight: 700;
+  }
+  .float-total .total-val { color: #f9ca24; font-size: 0.92rem; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.2rem; }
+    .hotel-grid { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    .float-summary { bottom: 12px; right: 12px; left: 12px; min-width: unset; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🏨 北海道住宿候選清單</h1>
+  <div class="subtitle">2026 北海道旅遊 · 評選與確認住宿</div>
+  <div class="header-meta">
+    <span class="meta-badge">✈️ JX 機票 EQM6MS</span>
+    <span class="meta-badge">📅 6/10–6/19（9 晚）</span>
+    <span class="meta-badge">👥 8 大人</span>
+    <span class="meta-badge">🗺️ 新千歲入境 → 函館出境</span>
+  </div>
+</header>
+
+<div class="summary-bar">
+  <div class="summary-item"><div class="dot dot-selected"></div>已選擇：<strong id="sel-count">0</strong> 城市</div>
+  <div class="summary-item"><div class="dot dot-candidate"></div>候選中：<strong id="cand-count">0</strong> 城市</div>
+  <div class="summary-item"><div class="dot dot-note"></div>已記備註：<strong id="note-count">0</strong> 筆</div>
+  <div style="margin-left:auto; font-size:0.82rem; color:var(--text-muted)">點擊卡片可展開備註 · 點「選擇」確認住宿</div>
+</div>
+
+<main id="main-content">
+  <!-- Content injected by JS -->
+</main>
+
+<div class="float-summary" id="float-summary">
+  <h4>💰 已選住宿費用估算</h4>
+  <div id="float-items">
+    <div style="opacity:0.6; font-size:0.75rem">尚未選擇任何住宿</div>
+  </div>
+  <div class="float-total" id="float-total" style="display:none">
+    <span>總計（TWD）</span>
+    <span class="total-val" id="float-total-val">—</span>
+  </div>
+</div>
+
+<script>
+// ───────────────────────────────────────────────
+// DATA
+// ───────────────────────────────────────────────
+const TRIP = {
+  pax: 8,
+  nights: 9,
+  rooms_needed: 3, // 8人 3間三人房 or 4間雙人房
+};
+
+const CITIES = [
+  {
+    id: "sapporo",
+    name: "札幌",
+    en: "Sapporo",
+    dates: "6/10（三）— 6/13（六）",
+    nights: 3,
+    emoji: "🏙️",
+    status: "pending",
+    hotels: [
+      {
+        id: "s1",
+        name: "JR Tower Hotel Nikko Sapporo",
+        name_en: "JR タワーホテル日航札幌",
+        tier: "luxury",
+        stars: 5,
+        price_per_room: 12000,
+        currency: "TWD",
+        rooms: 4,
+        nights: 3,
+        url: "https://www.jrhotels.co.jp/tower/",
+        tags: ["city", "transport", "elderly"],
+        tag_labels: ["直通 JR 札幌站", "交通極便利", "高齡友善"],
+        pros: ["JR 札幌站直通，無需拖行李", "視野極佳（高層）", "設施齊全、服務細緻"],
+        cons: ["價格較高", "離薄野夜市需搭車"],
+        note: "",
+      },
+      {
+        id: "s2",
+        name: "札幌 Grand Hotel",
+        name_en: "札幌グランドホテル",
+        tier: "upscale",
+        stars: 4,
+        price_per_room: 8500,
+        currency: "TWD",
+        rooms: 4,
+        nights: 3,
+        url: "https://www.grand1934.com/",
+        tags: ["city", "transport"],
+        tag_labels: ["大通公園步行 5 分", "歷史名飯店", "✅ 含早餐"],
+        pros: ["地點優、距地鐵近", "含早餐・早餐選項多樣", "老字號信譽"],
+        cons: ["房間偏舊式風格", "停車空間有限"],
+        note: "✅ Booking.com 已確認｜確認碼：6663114862",
+        confirmed: true,
+        confirmationNo: "6663114862",
+        platform: "Booking.com",
+      },
+      {
+        id: "s3",
+        name: "Vessel Hotel Campana Sapporo",
+        name_en: "ベッセルホテルカンパーナ札幌",
+        tier: "midscale",
+        stars: 3,
+        price_per_room: 5500,
+        currency: "TWD",
+        rooms: 4,
+        nights: 3,
+        url: "https://www.vessel-hotel.jp/campana/sapporo/",
+        tags: ["city", "transport"],
+        tag_labels: ["薄野站步行 2 分", "CP 值高", "連鎖品牌"],
+        pros: ["交通便利、步行即達地鐵", "性價比高", "早餐選擇佳"],
+        cons: ["房間較小", "無大型公共空間"],
+        note: "",
+      },
+      {
+        id: "s4",
+        name: "ANA Holiday Inn Sapporo Susukino",
+        name_en: "ANA ホリデイ・イン 札幌すすきの",
+        tier: "upscale",
+        stars: 4,
+        price_per_room: 7200,
+        currency: "TWD",
+        rooms: 4,
+        nights: 3,
+        url: "https://www.ihg.com/holidayinn/hotels/jp/ja/sapporo",
+        tags: ["city", "food"],
+        tag_labels: ["薄野夜市商圈", "連鎖品牌保障", "餐廳在館內"],
+        pros: ["ANA 品牌服務穩定", "薄野美食唾手可得", "設施現代"],
+        cons: ["位於夜市區較吵", "距 JR 站步行 10 分"],
+        note: "",
+      },
+    ],
+  },
+  {
+    id: "asahikawa",
+    name: "旭川 / 富良野 · 美瑛",
+    en: "Asahikawa / Furano · Biei",
+    dates: "6/13（六）— 6/15（一）",
+    nights: 2,
+    emoji: "🌸",
+    status: "pending",
+    hotels: [
+      {
+        id: "a1",
+        name: "OMO7 旭川 by 星野集團",
+        name_en: "OMO7 Asahikawa by Hoshino Resorts",
+        tier: "special",
+        stars: 4,
+        price_per_room: 24760,
+        currency: "JPY",
+        rooms: 4,
+        nights: 2,
+        url: "https://hoshinoresorts.com/ja/hotels/omo7asahikawa/",
+        tags: ["city", "elderly", "food"],
+        tag_labels: ["星野集團旗艦", "OMO7 最高等級", "高齡友善", "含早餐"],
+        pros: ["OMO 品牌強調在地體驗", "旭川站步行 3 分", "4 間 Superior Room 共 8 人", "設計感強、服務細膩", "含早餐・入住 18:00"],
+        cons: ["富良野景點需自駕或租車", "退房 10:00 AM 偏早"],
+        note: "✅ 星野直訂已確認｜4間 Superior Room × 2晚 = JPY 198,080",
+        highlighted: true,
+        confirmed: true,
+        confirmationNo: "8tz0vfzvkw",
+        platform: "星野リゾート直訂",
+      },
+      {
+        id: "a2",
+        name: "Dormy Inn Premium 旭川",
+        name_en: "ドーミーインPREMIUM 旭川",
+        tier: "midscale",
+        stars: 3,
+        price_per_room: 5800,
+        currency: "TWD",
+        rooms: 4,
+        nights: 2,
+        url: "https://www.hotespa.net/hotels/asahikawa/",
+        tags: ["onsen", "food"],
+        tag_labels: ["天然溫泉大浴場", "夜宵拉麵免費", "旭川站近"],
+        pros: ["免費深夜拉麵（夜鳴き蕎麥麵）", "天然溫泉浴場", "CP值佳"],
+        cons: ["房間空間較小", "無高級感"],
+        note: "",
+      },
+      {
+        id: "a3",
+        name: "旭川 Washington Hotel",
+        name_en: "旭川ワシントンホテル",
+        tier: "midscale",
+        stars: 3,
+        price_per_room: 4800,
+        currency: "TWD",
+        rooms: 4,
+        nights: 2,
+        url: "https://www.washington-hotels.jp/asahikawa/",
+        tags: ["city", "transport"],
+        tag_labels: ["旭川站 1 分鐘", "地點最佳", "連鎖品牌"],
+        pros: ["旭川站直連，雨天免曬", "適合行動不便長者", "乾淨整潔"],
+        cons: ["設施較基本", "無溫泉"],
+        note: "",
+      },
+    ],
+  },
+  {
+    id: "noboribetsu",
+    name: "登別",
+    en: "Noboribetsu",
+    dates: "6/15（一）— 6/17（三）",
+    nights: 2,
+    emoji: "♨️",
+    status: "pending",
+    hotels: [
+      {
+        id: "n1",
+        name: "第一 Takimotokan",
+        name_en: "登別第一滝本館",
+        tier: "luxury",
+        stars: 5,
+        price_per_room: 18000,
+        currency: "TWD",
+        rooms: 3,
+        nights: 2,
+        url: "https://www.takimotokan.co.jp/",
+        tags: ["onsen", "elderly", "food"],
+        tag_labels: ["35 種泉質", "日本最大溫泉浴場", "長者必住"],
+        pros: ["擁有 35 種以上泉質，全日本頂尖", "館內設施最完善", "含早餐・溫泉晚餐另計", "適合高齡旅客"],
+        cons: ["價格最高", "住房時間人潮多"],
+        note: "✅ Booking.com 已確認｜確認碼：5130429785｜含早餐",
+        confirmed: true,
+        confirmationNo: "5130429785",
+        platform: "Booking.com",
+      },
+      {
+        id: "n2",
+        name: "登別 Manseikaku Hotel",
+        name_en: "登別萬世閣ホテル",
+        tier: "upscale",
+        stars: 4,
+        price_per_room: 13500,
+        currency: "TWD",
+        rooms: 3,
+        nights: 2,
+        url: "https://www.manseikaku.co.jp/",
+        tags: ["onsen", "elderly"],
+        tag_labels: ["地獄谷步行 3 分", "多種泉質", "大型宴會餐"],
+        pros: ["距地獄谷景點極近", "溫泉種類多", "大型團體接待有經驗"],
+        cons: ["規模大、個人化服務稍遜", "建議加早晚餐"],
+        note: "",
+      },
+      {
+        id: "n3",
+        name: "Daiichi Hotel Noboribetsu",
+        name_en: "登別大一ホテル",
+        tier: "midscale",
+        stars: 3,
+        price_per_room: 9500,
+        currency: "TWD",
+        rooms: 4,
+        nights: 2,
+        url: "https://www.daiichi-noboribetsu.com/",
+        tags: ["onsen", "nature"],
+        tag_labels: ["家族型溫泉旅館", "包廂溫泉可訂", "CP 值高"],
+        pros: ["可預約私人包廂溫泉", "料理道地", "氛圍溫馨"],
+        cons: ["英語服務較少", "距主要景點需步行"],
+        note: "",
+      },
+    ],
+  },
+  {
+    id: "hakodate",
+    name: "函館",
+    en: "Hakodate",
+    dates: "6/17（三）— 6/19（五）",
+    nights: 2,
+    emoji: "🌃",
+    status: "pending",
+    hotels: [
+      {
+        id: "h0",
+        name: "望楼NOGUCHI函館",
+        name_en: "Bōrō Noguchi Hakodate",
+        tier: "luxury",
+        stars: 5,
+        price_per_room: 0,
+        currency: "JPY",
+        rooms: 4,
+        nights: 2,
+        url: "https://www.bourou.com/hakodate/",
+        tags: ["onsen", "elderly", "food", "nature"],
+        tag_labels: ["湯の川溫泉", "全客房溫泉", "✅ 含早晚餐", "函館夜景"],
+        pros: ["湯の川溫泉名旅館・全房間可泡溫泉", "含早晚餐・日式懷石晚餐", "距函館機場 HKD 約 10 分鐘", "高齡旅客友善・電梯完善"],
+        cons: ["距 JR 函館站路面電車約 30 分", "距朝市需搭計程車 15 分"],
+        note: "✅ Booking.com 已確認｜確認碼：5535567627｜含早餐",
+        confirmed: true,
+        confirmationNo: "5535567627",
+        platform: "Booking.com",
+        highlighted: true,
+      },
+      {
+        id: "h1",
+        name: "Hakodate Kokusai Hotel",
+        name_en: "函館国際ホテル",
+        tier: "upscale",
+        stars: 4,
+        price_per_room: 10500,
+        currency: "TWD",
+        rooms: 4,
+        nights: 2,
+        url: "https://www.hkokusai.co.jp/",
+        tags: ["city", "food", "elderly"],
+        tag_labels: ["函館朝市旁", "海鮮直送", "傳統名旅館"],
+        pros: ["距函館朝市步行 2 分", "早餐海鮮豐盛", "服務品質口碑佳", "高齡旅客友善"],
+        cons: ["略老式裝潢", "停車位有限"],
+        note: "",
+      },
+      {
+        id: "h2",
+        name: "La Vista Hakodate Bay",
+        name_en: "ラビスタ函館ベイ",
+        tier: "luxury",
+        stars: 5,
+        price_per_room: 16000,
+        currency: "TWD",
+        rooms: 3,
+        nights: 2,
+        url: "https://www.hotespa.net/hotels/lahakodate/",
+        tags: ["onsen", "food", "nature"],
+        tag_labels: ["展望溫泉（夜景）", "函館灣景", "早餐連續3年全日本第一"],
+        pros: ["頂樓展望溫泉可俯瞰夜景", "早餐獲評全日本最高分", "函館灣美景", "函館山纜車步行可達"],
+        cons: ["價格最高", "熱門季節需提早預訂"],
+        note: "",
+      },
+      {
+        id: "h3",
+        name: "Mystays Premier Hakodate",
+        name_en: "マイステイズプレミア函館",
+        tier: "upscale",
+        stars: 4,
+        price_per_room: 8800,
+        currency: "TWD",
+        rooms: 4,
+        nights: 2,
+        url: "https://www.mystays.com/mystays-premier-hakodate/",
+        tags: ["city", "transport"],
+        tag_labels: ["JR 函館站步行 2 分", "現代設施", "連鎖品牌"],
+        pros: ["距 JR 函館站最近", "房間現代寬敞", "出發日早退很方便"],
+        cons: ["距朝市略遠（步行 10 分）", "無私人溫泉"],
+        note: "",
+      },
+      {
+        id: "h4",
+        name: "湯の川プリンスホテル渚亭",
+        name_en: "Yunokawa Prince Hotel Nagisatei",
+        tier: "luxury",
+        stars: 5,
+        price_per_room: 18500,
+        currency: "TWD",
+        rooms: 3,
+        nights: 2,
+        url: "https://www.princehotels.co.jp/hakodate/",
+        tags: ["onsen", "nature", "food"],
+        tag_labels: ["湯之川溫泉鄉", "海景溫泉", "日式旅館"],
+        pros: ["湯之川溫泉名旅館", "津輕海峽海景展望浴場", "日式懷石料理", "離函館機場 15 分鐘"],
+        cons: ["距市區需搭路面電車約 20 分", "離朝市遠"],
+        note: "",
+      },
+    ],
+  },
+];
+
+// ───────────────────────────────────────────────
+// STATE & STORAGE
+// ───────────────────────────────────────────────
+const STORAGE_KEY = "hokkaido_hotels_2026";
+
+function loadState() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+  } catch { return {}; }
+}
+
+function saveState(state) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+let state = loadState();
+// state[cityId] = { selectedHotelId: "...", notes: { hotelId: "..." }, customHotels: [...] }
+
+function getCityState(cityId) {
+  if (!state[cityId]) state[cityId] = { selectedHotelId: null, notes: {}, customHotels: [] };
+  return state[cityId];
+}
+
+// ───────────────────────────────────────────────
+// RENDER
+// ───────────────────────────────────────────────
+function starStr(n) {
+  return "★".repeat(n) + "☆".repeat(5 - n);
+}
+
+function tierLabel(t) {
+  const map = { luxury: "豪華", upscale: "高級", midscale: "中級", budget: "經濟", special: "特選" };
+  return map[t] || t;
+}
+
+function calcTotal(hotel) {
+  return hotel.price_per_room * hotel.rooms * hotel.nights;
+}
+
+function renderCard(cityId, hotel) {
+  const cs = getCityState(cityId);
+  const isSelected = cs.selectedHotelId === hotel.id;
+  const note = cs.notes[hotel.id] || (hotel.note || "");
+  const total = calcTotal(hotel);
+  const hasNote = note.trim().length > 0;
+  const isBooked = !!hotel.confirmed;
+
+  return `
+  <div class="hotel-card ${isSelected ? "selected" : ""} ${isBooked ? "booked" : ""} ${hotel.highlighted ? "hotel-highlighted" : ""}"
+       id="card-${hotel.id}" onclick="toggleNoteArea('${hotel.id}')">
+    <div class="card-top">
+      <div class="hotel-name">
+        ${hotel.name}
+        <small>${hotel.name_en}</small>
+      </div>
+      <span class="tier-badge tier-${hotel.tier}">${tierLabel(hotel.tier)}</span>
+    </div>
+    <div class="stars">${starStr(hotel.stars)}</div>
+    <div class="price-row">
+      <span class="price-main">${hotel.currency || "TWD"} ${hotel.price_per_room.toLocaleString()}</span>
+      <span class="price-per">/ 間 / 晚</span>
+      <span class="price-total">共 ${hotel.rooms} 間 × ${hotel.nights} 晚 = ${hotel.currency || "TWD"} ${total.toLocaleString()}</span>
+    </div>
+    <div class="tags">
+      ${hotel.tag_labels.map((t, i) => `<span class="tag ${hotel.tags[i] || ""}">${t}</span>`).join("")}
+    </div>
+    <ul class="pros-cons">
+      ${hotel.pros.map(p => `<li class="pro">${p}</li>`).join("")}
+      ${hotel.cons.map(c => `<li class="con">${c}</li>`).join("")}
+    </ul>
+    ${isBooked ? `
+    <div class="booked-banner">
+      <span>✅ 已預訂</span>
+      <span>${hotel.platform || "線上訂房"}</span>
+      <span>確認碼：<span class="conf-no">${hotel.confirmationNo}</span></span>
+    </div>` : ""}
+    ${hotel.url ? `
+    <div class="hotel-url-row" onclick="event.stopPropagation()">
+      <span style="color:var(--text-muted)">🔗</span>
+      <a href="${hotel.url}" target="_blank" rel="noopener">${hotel.url}</a>
+    </div>` : ""}
+    <div class="card-actions" onclick="event.stopPropagation()">
+      <button class="btn-select" onclick="selectHotel('${cityId}', '${hotel.id}')">
+        ${isSelected ? "✓ 已選擇（取消）" : "選擇此飯店"}
+      </button>
+      ${hotel.url ? `<a class="btn-link" href="${hotel.url}" target="_blank" rel="noopener">🔗 官網</a>` : ""}
+    </div>
+    <div class="note-section" onclick="event.stopPropagation()">
+      <button class="note-toggle" onclick="toggleNoteArea('${hotel.id}')">
+        ${hasNote ? "📝 查看/編輯備註" : "✎ 新增備註"}
+        <span style="font-size:0.65rem; color:var(--text-muted)">（${hasNote ? "已有備註" : "點擊展開"}）</span>
+      </button>
+      <div class="note-area ${hasNote ? "open" : ""}" id="note-area-${hotel.id}">
+        <textarea
+          placeholder="記錄價格、空房狀況、特殊需求等..."
+          onchange="saveNote('${cityId}', '${hotel.id}', this.value)"
+          oninput="saveNote('${cityId}', '${hotel.id}', this.value)"
+        >${note}</textarea>
+      </div>
+    </div>
+    ${hotel.highlighted ? `<div style="margin-top:8px; font-size:0.72rem; color:#922b21; background:#fef0f0; border-radius:6px; padding:5px 8px;">⭐ 已截圖候選・建議訂 3 間高級三人房</div>` : ""}
+  </div>`;
+}
+
+function renderCity(city) {
+  const cs = getCityState(city.id);
+  const allHotels = [...city.hotels, ...(cs.customHotels || [])];
+  const statusLabel = cs.selectedHotelId ? "status-confirmed" : "status-pending";
+  const statusText = cs.selectedHotelId ? "已確認" : "候選中";
+  const selectedHotel = allHotels.find(h => h.id === cs.selectedHotelId);
+
+  return `
+  <section class="city-section" id="city-${city.id}">
+    <div class="city-header">
+      <span style="font-size:1.5rem">${city.emoji}</span>
+      <div class="city-tag">${city.name}</div>
+      <div class="city-dates">${city.dates}</div>
+      <div class="city-nights">${city.nights} 晚</div>
+      <span class="city-status ${statusLabel}">${statusText}</span>
+    </div>
+    ${selectedHotel ? `
+    <div style="font-size:0.78rem; background:#d5f5e3; border:1px solid #a9dfbf; border-radius:8px; padding:6px 12px; margin-bottom:10px; color:#1a6b5a;">
+      ✅ 已選：<strong>${selectedHotel.name}</strong>
+      &nbsp;·&nbsp; TWD ${calcTotal(selectedHotel).toLocaleString()} 總計
+    </div>` : ""}
+    <div class="hotel-grid" id="grid-${city.id}">
+      ${allHotels.map(h => renderCard(city.id, h)).join("")}
+      <button class="add-hotel-btn" onclick="toggleAddForm('${city.id}')">＋ 新增其他候選飯店</button>
+    </div>
+    <div class="add-form" id="add-form-${city.id}">
+      <h4>新增候選飯店</h4>
+      <div class="form-grid">
+        <div class="form-group full"><label>飯店名稱 *</label><input type="text" id="af-name-${city.id}" placeholder="中文或英文名稱"></div>
+        <div class="form-group"><label>每間每晚 TWD</label><input type="number" id="af-price-${city.id}" placeholder="0"></div>
+        <div class="form-group"><label>房間數</label><input type="number" id="af-rooms-${city.id}" value="4" min="1"></div>
+        <div class="form-group"><label>等級</label>
+          <select id="af-tier-${city.id}">
+            <option value="luxury">豪華</option>
+            <option value="upscale" selected>高級</option>
+            <option value="midscale">中級</option>
+            <option value="budget">經濟</option>
+          </select>
+        </div>
+        <div class="form-group"><label>官網 URL（選填）</label><input type="url" id="af-url-${city.id}" placeholder="https://..."></div>
+        <div class="form-group full"><label>備註</label><input type="text" id="af-note-${city.id}" placeholder="特色、優缺點..."></div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-add-confirm" onclick="addCustomHotel('${city.id}')">確認新增</button>
+        <button class="btn-add-cancel" onclick="toggleAddForm('${city.id}')">取消</button>
+      </div>
+    </div>
+  </section>`;
+}
+
+function renderAll() {
+  const main = document.getElementById("main-content");
+  main.innerHTML = CITIES.map(c => renderCity(c)).join("");
+  updateSummary();
+}
+
+// ───────────────────────────────────────────────
+// INTERACTIONS
+// ───────────────────────────────────────────────
+function selectHotel(cityId, hotelId) {
+  const cs = getCityState(cityId);
+  cs.selectedHotelId = cs.selectedHotelId === hotelId ? null : hotelId;
+  saveState(state);
+  renderAll();
+  // Scroll to keep city section in view
+  setTimeout(() => {
+    document.getElementById("city-" + cityId)?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }, 50);
+}
+
+function toggleNoteArea(hotelId) {
+  const area = document.getElementById("note-area-" + hotelId);
+  if (area) area.classList.toggle("open");
+}
+
+function saveNote(cityId, hotelId, val) {
+  const cs = getCityState(cityId);
+  cs.notes[hotelId] = val;
+  saveState(state);
+  updateSummary();
+}
+
+function toggleAddForm(cityId) {
+  const form = document.getElementById("add-form-" + cityId);
+  form.classList.toggle("open");
+}
+
+function addCustomHotel(cityId) {
+  const name = document.getElementById(`af-name-${cityId}`).value.trim();
+  if (!name) { alert("請輸入飯店名稱"); return; }
+  const price = parseInt(document.getElementById(`af-price-${cityId}`).value) || 0;
+  const rooms = parseInt(document.getElementById(`af-rooms-${cityId}`).value) || 4;
+  const tier = document.getElementById(`af-tier-${cityId}`).value;
+  const url = document.getElementById(`af-url-${cityId}`).value.trim();
+  const note = document.getElementById(`af-note-${cityId}`).value.trim();
+  const city = CITIES.find(c => c.id === cityId);
+  const cs = getCityState(cityId);
+
+  const newHotel = {
+    id: `custom-${cityId}-${Date.now()}`,
+    name,
+    name_en: "",
+    tier,
+    stars: 3,
+    price_per_room: price,
+    currency: "TWD",
+    rooms,
+    nights: city.nights,
+    url,
+    tags: [],
+    tag_labels: ["自行新增"],
+    pros: [],
+    cons: [],
+    note: note,
+  };
+  if (!cs.customHotels) cs.customHotels = [];
+  cs.customHotels.push(newHotel);
+  if (note) cs.notes[newHotel.id] = note;
+  saveState(state);
+  renderAll();
+  document.getElementById("city-" + cityId)?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+// ───────────────────────────────────────────────
+// SUMMARY
+// ───────────────────────────────────────────────
+function updateSummary() {
+  let selCount = 0, pendCount = 0, noteCount = 0;
+  let floatItems = "";
+  let grandTotal = 0;
+  let hasAny = false;
+
+  CITIES.forEach(city => {
+    const cs = getCityState(city.id);
+    const allHotels = [...city.hotels, ...(cs.customHotels || [])];
+
+    if (cs.selectedHotelId) {
+      selCount++;
+      const h = allHotels.find(x => x.id === cs.selectedHotelId);
+      if (h) {
+        const t = calcTotal(h);
+        grandTotal += t;
+        hasAny = true;
+        floatItems += `<div class="float-summary-item">
+          <span class="name">${city.emoji} ${city.name}</span>
+          <span class="val">TWD ${t.toLocaleString()}</span>
+        </div>`;
+      }
+    } else {
+      pendCount++;
+    }
+    // count notes
+    Object.values(cs.notes || {}).forEach(n => { if (n && n.trim()) noteCount++; });
+  });
+
+  document.getElementById("sel-count").textContent = selCount;
+  document.getElementById("cand-count").textContent = pendCount;
+  document.getElementById("note-count").textContent = noteCount;
+
+  const floatItemsEl = document.getElementById("float-items");
+  const floatTotalEl = document.getElementById("float-total");
+  const floatTotalVal = document.getElementById("float-total-val");
+
+  if (hasAny) {
+    floatItemsEl.innerHTML = floatItems;
+    floatTotalEl.style.display = "flex";
+    floatTotalVal.textContent = `TWD ${grandTotal.toLocaleString()}`;
+  } else {
+    floatItemsEl.innerHTML = `<div style="opacity:0.6; font-size:0.75rem">尚未選擇任何住宿</div>`;
+    floatTotalEl.style.display = "none";
+  }
+}
+
+// ───────────────────────────────────────────────
+// INIT
+// ───────────────────────────────────────────────
+renderAll();
+</script>
+</body>
+</html>
