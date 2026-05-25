@@ -169,6 +169,7 @@
   <button class="tab-btn" onclick="showTab('budget',this)">💴 費用預算</button>
   <button class="tab-btn" onclick="showTab('checklist',this)">✅ 行前準備</button>
   <button class="tab-btn" onclick="showTab('tips',this)">💡 旅遊貼士</button>
+  <button class="tab-btn" onclick="showTab('maps',this)">🗺️ 地區地圖</button>
 </div>
 
 <div class="content">
@@ -319,8 +320,40 @@
           <li class="activity-item"><input type="checkbox" id="a5-6"><label for="a5-6">🍦 薰衣草霜淇淋（Farm Tomita 限定）</label></li>
         </ul>
       </div>
+      <!-- Klook 包車確認卡 -->
+      <div style="background:linear-gradient(135deg,#1a6b3c,#2d6a4f);color:#fff;border-radius:12px;padding:14px 18px;margin:12px 0;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px">
+        <div>
+          <div style="font-size:.73rem;opacity:.8;margin-bottom:3px;letter-spacing:.5px">✅ KLOOK 已訂購・2026/5/25</div>
+          <div style="font-weight:800;font-size:1rem">札幌包車：美瑛、富良野、登別、洞爺湖</div>
+          <div style="font-size:.82rem;opacity:.9;margin-top:5px">【一日遊】旭川 / 富良野 / 美瑛（10小時・300公里）</div>
+          <div style="font-size:.78rem;opacity:.85;margin-top:3px">車型：1–9人團 ｜ 語言：中文 ｜ 日期：6/14（日）</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:.72rem;opacity:.8;margin-bottom:2px">付款金額</div>
+          <div style="font-size:1.4rem;font-weight:800">¥69,412</div>
+          <div style="font-size:.72rem;opacity:.75;margin-top:2px">≈ NT$15,271</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:14px">
+        <div style="background:#f5f9f5;border:1px solid #c8e6c9;border-radius:8px;padding:9px 12px">
+          <div style="font-size:.68rem;color:#777;margin-bottom:2px">訂單編號</div>
+          <div style="font-weight:700;font-size:.88rem;color:var(--green)">VAH987272</div>
+        </div>
+        <div style="background:#f5f9f5;border:1px solid #c8e6c9;border-radius:8px;padding:9px 12px">
+          <div style="font-size:.68rem;color:#777;margin-bottom:2px">取消截止日</div>
+          <div style="font-weight:700;font-size:.88rem;color:var(--red)">6/11 前可取消</div>
+        </div>
+        <div style="background:#f5f9f5;border:1px solid #c8e6c9;border-radius:8px;padding:9px 12px">
+          <div style="font-size:.68rem;color:#777;margin-bottom:2px">供應商電話</div>
+          <div style="font-weight:700;font-size:.82rem;color:var(--green)">+86-13573282809</div>
+        </div>
+        <div style="background:#f5f9f5;border:1px solid #c8e6c9;border-radius:8px;padding:9px 12px">
+          <div style="font-size:.68rem;color:#777;margin-bottom:2px">供應商 Email</div>
+          <div style="font-weight:700;font-size:.78rem;color:var(--green)">86065283@qq.com</div>
+        </div>
+      </div>
       <div class="info-grid">
-        <div class="info-box"><div class="ib-label">🚗 交通</div><div class="ib-val">租車自駕（全日）<br>加滿油返還旭川</div></div>
+        <div class="info-box"><div class="ib-label">🚗 交通</div><div class="ib-val">包車（全日10小時・300公里）✅<br><small>Klook VAH987272・¥69,412 (≈NT$15,271)</small></div></div>
         <div class="info-box"><div class="ib-label">🏨 住宿</div><div class="ib-val">OMO7旭川 by 星野集團（同上）✅</div></div>
       </div>
       <div class="section"><div class="section-title">📝 備註</div><textarea class="notes-area" placeholder="備註..."></textarea></div>
@@ -623,15 +656,15 @@
         <tr><td>🚆 JR Pass（已訂✅）</td><td>4,347</td><td><strong>36,515</strong></td><td>Klook YFS021264・8人實付總額（含 No-show Refund NT$1,739）</td></tr>
         <tr style="background:#fffde7"><td>🚆 JR 個別車票 <span style="background:#f9a825;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle">估</span></td><td>~540</td><td>~4,320</td><td>機場快線¥1,150 ＋ 小樽往返¥1,500 ＋ 補票¥370（/人）・抵日購</td></tr>
         <tr style="background:#fffde7"><td>🚌 機場巴士 <span style="background:#f9a825;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle">估</span></td><td>~97</td><td>~776</td><td>函館機場利木津巴士</td></tr>
-        <tr style="background:#fffde7"><td>🚗 租車 1天（8人均攤） <span style="background:#f9a825;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle">估</span></td><td>~1,750</td><td>~14,000</td><td>旭川/美瑛自駕 1天，8人均攤</td></tr>
+        <tr><td>🚗 包車 1天（8人均攤）<span style="background:#2d6a4f;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle;margin-left:4px">✅</span></td><td>~1,909</td><td><strong>~15,271</strong></td><td>Klook VAH987272・旭川/富良野/美瑛 10h・6/14｜¥69,412・已確認</td></tr>
         <tr style="background:#fffde7"><td>🍽 餐飲（含景點） <span style="background:#f9a825;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle">估</span></td><td>~8,000</td><td>~64,000</td><td>登別・函館旅館含早餐（部分另計）</td></tr>
         <tr style="background:#fffde7"><td>🎟 景點門票 <span style="background:#f9a825;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle">估</span></td><td>~2,200</td><td>~17,600</td><td>動物園、纜車、五稜郭等</td></tr>
         <tr style="background:#fffde7"><td>📱 SIM 卡 <span style="background:#f9a825;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle">估</span></td><td>~660</td><td>~5,280</td><td>10天吃到飽 SIM</td></tr>
-        <tr style="background:var(--green-pale)"><td class="budget-total">合計（含機票）</td><td class="budget-total">~NT$79,789</td><td class="budget-total">~NT$635,991</td><td></td></tr>
+        <tr style="background:var(--green-pale)"><td class="budget-total">合計（含機票）</td><td class="budget-total">~NT$79,454</td><td class="budget-total">~NT$635,632</td><td></td></tr>
       </tbody>
     </table>
     <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
-      <div class="tip-box success" style="flex:1;min-width:200px;margin:0">✅ <strong>已確認付款：</strong>機票 NT$196,970 ＋ 住宿 NT$296,527 ＋ JR Pass NT$36,515 = <strong>NT$530,012</strong></div>
+      <div class="tip-box success" style="flex:1;min-width:200px;margin:0">✅ <strong>已確認付款：</strong>機票 NT$196,970 ＋ 住宿 NT$296,527 ＋ JR Pass NT$36,515 ＋ 包車 ~NT$15,271 = <strong>~NT$545,283</strong><br><small style="opacity:.8">包車費用 ¥69,412 已確認（以 NT$0.22/JPY 換算）</small></div>
       <div class="tip-box" style="flex:1;min-width:200px;margin:0"><span style="background:#f9a825;color:#fff;font-size:.7rem;padding:1px 6px;border-radius:8px;font-weight:700">估</span> <strong>其餘為預估，</strong>實際依當地消費調整</div>
     </div>
   </div></div>
@@ -645,7 +678,7 @@
       <div class="check-item"><input type="checkbox" id="urg1"><label for="urg1" style="color:#c62828;font-weight:700">莊淑卿 — 護照換證（6/30 到期！）</label></div>
       <div class="check-item"><input type="checkbox" id="urg2"><label for="urg2" style="color:#c62828;font-weight:700">莊靜芬 — 護照換證（7/7 到期！）</label></div>
       <div class="check-item"><input type="checkbox" id="urg3"><label for="urg3" style="color:#e65100;font-weight:700">莊麗茹 — 補填護照號碼及效期</label></div>
-      <div class="check-item"><input type="checkbox" id="urg4"><label for="urg4">旭川/美瑛租車預訂（D4-D5）</label></div>
+      <div class="check-item"><input type="checkbox" id="urg4" checked><label for="urg4">✅ 旭川/美瑛包車預訂（D5・6/14）— Klook VAH987272・¥69,412・已確認</label></div>
     </div>
   </div>
   <div class="checklist-section">
@@ -656,6 +689,7 @@
       <div class="check-item"><input type="checkbox" id="c3" checked><label for="c3">✅ 第一滝本館 登別（2晚）— 確認號 5130429785</label></div>
       <div class="check-item"><input type="checkbox" id="c4" checked><label for="c4">✅ 望楼NOGUCHI函館（3晚）— 確認號 5535567627</label></div>
       <div class="check-item"><input type="checkbox" id="c5" checked><label for="c5">✅ JR 北海道鐵路周遊券・5天（Klook 已訂）— 訂單 YFS021264・代轉號 T51877558・NT$36,515・<strong>6/13 再啟用</strong></label></div>
+      <div class="check-item"><input type="checkbox" id="c7" checked><label for="c7">✅ 旭川包車 D5 6/14（Klook 已確認）— 訂單 VAH987272・¥69,412</label></div>
       <div class="check-item"><input type="checkbox" id="c6"><label for="c6">旅遊保險投保（8人）</label></div>
     </div>
   </div>
@@ -676,6 +710,35 @@
 
 <!-- ===== TAB: TIPS ===== -->
 <div id="tab-tips" class="tab-panel">
+
+  <!-- 訂單收據區 -->
+  <div class="day-card"><div style="padding:20px">
+    <h2 style="font-size:1rem;font-weight:700;color:var(--green);margin-bottom:14px">🧾 Klook 訂單收據</h2>
+
+    <!-- JR Pass PDF -->
+    <div style="margin-bottom:20px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div style="background:var(--green);color:#fff;border-radius:8px;padding:4px 10px;font-size:.75rem;font-weight:700">PDF</div>
+        <div>
+          <div style="font-weight:700;font-size:.95rem">北海道 JR Pass 鐵路周遊券・5天</div>
+          <div style="font-size:.78rem;color:var(--gray)">訂單 YFS021264・代轉 T51877558・NT$36,515</div>
+        </div>
+      </div>
+      <iframe src="receipts/JR_klook_receipt.pdf" style="width:100%;height:480px;border:1px solid var(--border);border-radius:10px;background:#f9f9f9" title="JR Pass 收據"></iframe>
+    </div>
+
+    <!-- 旭川包車 PNG -->
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div style="background:#1565c0;color:#fff;border-radius:8px;padding:4px 10px;font-size:.75rem;font-weight:700">截圖</div>
+        <div>
+          <div style="font-weight:700;font-size:.95rem">旭川包車：富良野 / 美瑛 一日遊</div>
+          <div style="font-size:.78rem;color:var(--gray)">訂單 VAH987272・¥69,412（≈NT$15,271）・6/14 已確認</div>
+        </div>
+      </div>
+      <img src="receipts/asahigawa_klook.png" alt="旭川包車 Klook 訂單" style="width:100%;border:1px solid var(--border);border-radius:10px;display:block">
+    </div>
+  </div></div>
   <div class="day-card"><div style="padding:20px">
     <h2 style="font-size:1rem;font-weight:700;color:var(--green);margin-bottom:10px">🎫 開口票交通規劃重點</h2>
     <div class="tip-box success">
@@ -860,6 +923,217 @@
 </div>
 
 </div>
+
+<!-- ===== TAB: MAPS ===== -->
+<div id="tab-maps" class="tab-panel">
+<style>
+  .map-card { background:white; border-radius:16px; margin-bottom:22px; box-shadow:var(--shadow); overflow:hidden; }
+  .map-card-header { padding:14px 20px 12px; display:flex; align-items:center; gap:12px; border-bottom:1px solid var(--border); }
+  .map-day-badge { background:var(--green); color:#fff; border-radius:8px; padding:3px 10px; font-size:.75rem; font-weight:700; white-space:nowrap; }
+  .map-card-title { font-size:1rem; font-weight:700; }
+  .map-card-sub { font-size:.78rem; color:var(--gray); margin-top:2px; }
+  .map-spots { display:flex; flex-wrap:wrap; gap:6px; padding:10px 20px; border-bottom:1px solid var(--border); background:var(--gray-light); }
+  .map-spot-tag { font-size:.74rem; background:white; border:1px solid var(--border); border-radius:12px; padding:3px 10px; color:#444; }
+  .map-frame { width:100%; height:360px; border:none; display:block; }
+  .map-links { display:flex; gap:8px; padding:10px 16px; flex-wrap:wrap; }
+  .map-link-btn { display:inline-flex; align-items:center; gap:5px; font-size:.78rem; font-weight:600; padding:6px 14px; border-radius:8px; text-decoration:none; transition:opacity .2s; }
+  .map-link-btn:hover { opacity:.82; }
+  .map-link-gmaps { background:#4285F4; color:#fff; }
+  .map-link-osm   { background:#7EBC6F; color:#fff; }
+</style>
+
+  <div class="tip-box" style="margin-bottom:16px">
+    🗺️ <strong>行程地區總覽：</strong>新千歲入境 → 札幌・小樽 → 旭川・美瑛・富良野 → 登別 → 函館・大沼，由北向南一路玩，共 6 大地區。
+  </div>
+
+  <!-- 1. 札幌 -->
+  <div class="map-card">
+    <div class="map-card-header">
+      <div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <span class="map-day-badge">D1–D3</span>
+          <span class="map-day-badge" style="background:var(--blue)">6/10–6/12</span>
+        </div>
+        <div class="map-card-title" style="margin-top:6px">🏙 札幌</div>
+        <div class="map-card-sub">新千歲機場入境・市區觀光 3 晚｜札幌格蘭大酒店</div>
+      </div>
+    </div>
+    <div class="map-spots">
+      <span class="map-spot-tag">✈️ 新千歲機場 (CTS)</span>
+      <span class="map-spot-tag">🕐 時計台</span>
+      <span class="map-spot-tag">🌿 北海道神宮・圓山公園</span>
+      <span class="map-spot-tag">🌳 大通公園</span>
+      <span class="map-spot-tag">🛍 狸小路</span>
+      <span class="map-spot-tag">🌃 藻岩山纜車</span>
+      <span class="map-spot-tag">🏨 札幌格蘭大酒店</span>
+    </div>
+    <iframe class="map-frame"
+      src="https://www.openstreetmap.org/export/embed.html?bbox=141.2003%2C42.9936%2C141.4777%2C43.1347&layer=mapnik&marker=43.0618%2C141.3545"
+      title="札幌地圖"></iframe>
+    <div class="map-links">
+      <a class="map-link-btn map-link-gmaps" href="https://www.google.com/maps/@43.0618,141.3545,13z" target="_blank">📍 Google Maps 開啟</a>
+      <a class="map-link-btn map-link-osm" href="https://www.openstreetmap.org/#map=13/43.0618/141.3545" target="_blank">🗺 OpenStreetMap</a>
+      <a class="map-link-btn" style="background:#fbbc04;color:#333" href="https://www.google.com/maps/search/札幌+観光スポット" target="_blank">🔍 搜尋札幌景點</a>
+    </div>
+  </div>
+
+  <!-- 2. 小樽 -->
+  <div class="map-card">
+    <div class="map-card-header">
+      <div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <span class="map-day-badge">D3</span>
+          <span class="map-day-badge" style="background:var(--blue)">6/12 往返</span>
+        </div>
+        <div class="map-card-title" style="margin-top:6px">⚓ 小樽</div>
+        <div class="map-card-sub">札幌出發日歸・JR 約 32 分</div>
+      </div>
+    </div>
+    <div class="map-spots">
+      <span class="map-spot-tag">⚓ 小樽運河</span>
+      <span class="map-spot-tag">🦐 三角市場</span>
+      <span class="map-spot-tag">🍫 LeTAO・北菓楼・六花亭</span>
+      <span class="map-spot-tag">🔭 天狗山纜車</span>
+      <span class="map-spot-tag">🏛 歷史倉庫街</span>
+    </div>
+    <iframe class="map-frame"
+      src="https://www.openstreetmap.org/export/embed.html?bbox=140.9580%2C43.1715%2C141.0400%2C43.2200&layer=mapnik&marker=43.1906%2C140.9947"
+      title="小樽地圖"></iframe>
+    <div class="map-links">
+      <a class="map-link-btn map-link-gmaps" href="https://www.google.com/maps/@43.1906,140.9947,14z" target="_blank">📍 Google Maps 開啟</a>
+      <a class="map-link-btn map-link-osm" href="https://www.openstreetmap.org/#map=14/43.1906/140.9947" target="_blank">🗺 OpenStreetMap</a>
+      <a class="map-link-btn" style="background:#fbbc04;color:#333" href="https://www.google.com/maps/search/小樽運河" target="_blank">🔍 搜尋小樽運河</a>
+    </div>
+  </div>
+
+  <!-- 3. 旭川・美瑛・富良野 -->
+  <div class="map-card">
+    <div class="map-card-header">
+      <div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <span class="map-day-badge">D4–D5</span>
+          <span class="map-day-badge" style="background:#E65100">6/13–6/14</span>
+          <span class="map-day-badge" style="background:#2d6a4f">🚗 包車 VAH987272</span>
+        </div>
+        <div class="map-card-title" style="margin-top:6px">🌸 旭川・美瑛・富良野</div>
+        <div class="map-card-sub">OMO7旭川 2晚・包車全日遊・10小時・300公里</div>
+      </div>
+    </div>
+    <div class="map-spots">
+      <span class="map-spot-tag">🌈 四季彩之丘</span>
+      <span class="map-spot-tag">🌿 美瑛「拼布之路」</span>
+      <span class="map-spot-tag">🌻 Farm Tomita（富田農場）</span>
+      <span class="map-spot-tag">🔵 白金青池</span>
+      <span class="map-spot-tag">🌲 白髭瀑布</span>
+      <span class="map-spot-tag">🌳 ケンとメリーの木</span>
+      <span class="map-spot-tag">🧀 富良野起司工廠</span>
+      <span class="map-spot-tag">🐧 旭山動物園（D6 出發前）</span>
+      <span class="map-spot-tag">🏨 OMO7旭川</span>
+    </div>
+    <iframe class="map-frame" style="height:400px"
+      src="https://www.openstreetmap.org/export/embed.html?bbox=141.9500%2C43.1500%2C142.8500%2C43.9500&layer=mapnik&marker=43.5500%2C142.4700"
+      title="旭川・美瑛・富良野地圖"></iframe>
+    <div class="map-links">
+      <a class="map-link-btn map-link-gmaps" href="https://www.google.com/maps/@43.55,142.47,10z" target="_blank">📍 Google Maps 開啟（廣域）</a>
+      <a class="map-link-btn map-link-osm" href="https://www.openstreetmap.org/#map=10/43.55/142.47" target="_blank">🗺 OpenStreetMap</a>
+      <a class="map-link-btn" style="background:#fbbc04;color:#333" href="https://www.google.com/maps/search/美瑛+観光" target="_blank">🔍 搜尋美瑛景點</a>
+      <a class="map-link-btn" style="background:#fbbc04;color:#333" href="https://www.google.com/maps/place/Farm+Tomita/@43.3283,142.3857,14z" target="_blank">🌻 Farm Tomita</a>
+    </div>
+  </div>
+
+  <!-- 4. 登別 -->
+  <div class="map-card">
+    <div class="map-card-header">
+      <div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <span class="map-day-badge">D6–D7</span>
+          <span class="map-day-badge" style="background:#6A1B9A">6/15–6/16</span>
+        </div>
+        <div class="map-card-title" style="margin-top:6px">♨️ 登別溫泉</div>
+        <div class="map-card-sub">第一滝本館 2晚・9種泉質・地獄谷</div>
+      </div>
+    </div>
+    <div class="map-spots">
+      <span class="map-spot-tag">🌋 地獄谷</span>
+      <span class="map-spot-tag">💧 大湯沼・奧の湯</span>
+      <span class="map-spot-tag">🐻 登別熊牧場</span>
+      <span class="map-spot-tag">🎭 閻魔堂</span>
+      <span class="map-spot-tag">♨️ 第一滝本館</span>
+    </div>
+    <iframe class="map-frame"
+      src="https://maps.google.com/maps?q=42.4809,141.0982&t=m&z=14&output=embed"
+      title="登別溫泉街道地圖"></iframe>
+    <div class="map-links">
+      <a class="map-link-btn map-link-gmaps" href="https://www.google.com/maps/@42.4809,141.0982,14z" target="_blank">📍 Google Maps 開啟</a>
+      <a class="map-link-btn map-link-osm" href="https://www.openstreetmap.org/#map=14/42.4809/141.0982" target="_blank">🗺 OpenStreetMap</a>
+      <a class="map-link-btn" style="background:#fbbc04;color:#333" href="https://www.google.com/maps/place/Jigokudani,+Noboribetsu,+Hokkaido" target="_blank">🌋 地獄谷</a>
+    </div>
+  </div>
+
+  <!-- 5. 函館 -->
+  <div class="map-card">
+    <div class="map-card-header">
+      <div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <span class="map-day-badge">D8–D10</span>
+          <span class="map-day-badge" style="background:#00695C">6/17–6/19</span>
+        </div>
+        <div class="map-card-title" style="margin-top:6px">🏰 函館</div>
+        <div class="map-card-sub">望楼NOGUCHI函館 3晚（含早晚餐）・湯の川溫泉・HKD 出境</div>
+      </div>
+    </div>
+    <div class="map-spots">
+      <span class="map-spot-tag">🌃 函館山夜景（日本三大夜景）</span>
+      <span class="map-spot-tag">⛪ 元町西洋建築群</span>
+      <span class="map-spot-tag">⭐ 五稜郭・五稜郭塔</span>
+      <span class="map-spot-tag">🏛 舊英國領事館</span>
+      <span class="map-spot-tag">🦐 函館朝市</span>
+      <span class="map-spot-tag">🍔 幸運小丑漢堡</span>
+      <span class="map-spot-tag">🏗 金森紅磚倉庫</span>
+      <span class="map-spot-tag">♨️ 湯の川溫泉</span>
+      <span class="map-spot-tag">✈️ 函館機場 (HKD)</span>
+    </div>
+    <iframe class="map-frame" style="height:400px"
+      src="https://www.openstreetmap.org/export/embed.html?bbox=140.6800%2C41.7150%2C140.8000%2C41.8250&layer=mapnik&marker=41.7687%2C140.7290"
+      title="函館地圖"></iframe>
+    <div class="map-links">
+      <a class="map-link-btn map-link-gmaps" href="https://www.google.com/maps/@41.7687,140.7290,13z" target="_blank">📍 Google Maps 開啟</a>
+      <a class="map-link-btn map-link-osm" href="https://www.openstreetmap.org/#map=13/41.7687/140.7290" target="_blank">🗺 OpenStreetMap</a>
+      <a class="map-link-btn" style="background:#fbbc04;color:#333" href="https://www.google.com/maps/place/Mt.+Hakodate/@41.7572,140.6979,15z" target="_blank">🌃 函館山</a>
+      <a class="map-link-btn" style="background:#fbbc04;color:#333" href="https://www.google.com/maps/place/Goryokaku+Tower/@41.7966,140.7565,15z" target="_blank">⭐ 五稜郭塔</a>
+    </div>
+  </div>
+
+  <!-- 6. 大沼國定公園 -->
+  <div class="map-card">
+    <div class="map-card-header">
+      <div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <span class="map-day-badge">D9</span>
+          <span class="map-day-badge" style="background:#1A237E">6/18 往返</span>
+        </div>
+        <div class="map-card-title" style="margin-top:6px">🌿 大沼國定公園</div>
+        <div class="map-card-sub">函館出發 JR 約 30 分・全程平坦無障礙・適合長輩</div>
+      </div>
+    </div>
+    <div class="map-spots">
+      <span class="map-spot-tag">🌊 大沼湖・小沼湖</span>
+      <span class="map-spot-tag">🏔 駒ヶ岳</span>
+      <span class="map-spot-tag">🍡 大沼糰子（名產）</span>
+      <span class="map-spot-tag">🚶 湖畔散步道（無障礙）</span>
+      <span class="map-spot-tag">🚂 大沼公園站（JR 函館本線）</span>
+    </div>
+    <iframe class="map-frame"
+      src="https://www.openstreetmap.org/export/embed.html?bbox=140.6000%2C42.0600%2C140.7600%2C42.1700&layer=mapnik&marker=42.1152%2C140.6702"
+      title="大沼國定公園地圖"></iframe>
+    <div class="map-links">
+      <a class="map-link-btn map-link-gmaps" href="https://www.google.com/maps/@42.1152,140.6702,13z" target="_blank">📍 Google Maps 開啟</a>
+      <a class="map-link-btn map-link-osm" href="https://www.openstreetmap.org/#map=13/42.1152/140.6702" target="_blank">🗺 OpenStreetMap</a>
+      <a class="map-link-btn" style="background:#fbbc04;color:#333" href="https://www.google.com/maps/place/Onuma+Quasi-National+Park/@42.1152,140.6702,13z" target="_blank">🔍 搜尋大沼公園</a>
+    </div>
+  </div>
+
+</div><!-- end tab-maps -->
 
 </div><!-- end content -->
 <div style="text-align:center;padding:20px 0;font-size:.8rem;color:#aaa">北海道旅遊計劃 2026 ｜ 祝旅途愉快 🌿</div>
