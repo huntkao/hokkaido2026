@@ -633,6 +633,31 @@
   <div class="day-card"><div style="padding:20px">
     <h2 style="font-size:1.1rem;margin-bottom:4px;color:var(--green)">💰 費用總覽（每人 / NT$）</h2>
     <p style="font-size:.82rem;color:var(--gray);margin-bottom:16px">以新台幣計算｜匯率：1 JPY ≈ NT$0.22</p>
+<style>
+  /* ── 費用預算 響應式 ── */
+  .budget-cards { display:none; }
+  .bc-item { border:1px solid var(--border); border-radius:12px; margin-bottom:10px; overflow:hidden; }
+  .bc-item.confirmed { border-color:#a5d6a7; }
+  .bc-item.estimated { border-color:#ffe082; }
+  .bc-item.total-row { border-color:var(--green); }
+  .bc-header { display:flex; justify-content:space-between; align-items:center; padding:10px 14px; gap:8px; }
+  .bc-item.confirmed .bc-header { background:#f1f8e9; }
+  .bc-item.estimated .bc-header { background:#fffde7; }
+  .bc-item.total-row .bc-header { background:var(--green-pale); }
+  .bc-label { font-size:.85rem; font-weight:700; flex:1; }
+  .bc-amounts { text-align:right; white-space:nowrap; }
+  .bc-per   { font-size:.82rem; font-weight:800; color:var(--green); }
+  .bc-total { font-size:.72rem; color:var(--gray); margin-top:1px; }
+  .bc-note  { font-size:.72rem; color:#555; padding:6px 14px 10px; border-top:1px solid var(--border); background:#fafafa; line-height:1.6; }
+  .bc-item.total-row .bc-label { font-size:.9rem; }
+  .bc-item.total-row .bc-per   { font-size:.95rem; color:#1b5e20; }
+  @media(max-width:640px){
+    .budget-table { display:none; }
+    .budget-cards { display:block; }
+  }
+</style>
+
+    <!-- 桌機：表格 -->
     <table class="budget-table">
       <thead><tr><th>項目</th><th>每人（NT$）</th><th>8人合計（NT$）</th><th>備註</th></tr></thead>
       <tbody>
@@ -643,7 +668,6 @@
         <tr style="background:#f1f8e9"><td>🚆 JR 機場快線（新千歲→札幌）<span style="background:#43a047;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle">✅ 已付</span></td><td>478</td><td>3,820</td><td>KKday 已訂｜#26KK279750466（NT$1,884）+ #26KK274950086（NT$1,936）</td></tr>
         <tr style="background:#fffde7"><td>🚆 JR 個別車票（小樽往返・道南補票）<span style="background:#f9a825;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle">估</span></td><td>~411</td><td>~3,288</td><td>小樽往返¥1,500＋新函館北斗→函館補票¥370（/人）・抵日現場購</td></tr>
         <tr style="background:#fffde7"><td>🚌 機場巴士 <span style="background:#f9a825;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle">估</span></td><td>~97</td><td>~776</td><td>函館機場利木津巴士</td></tr>
-
         <tr style="background:#f1f8e9"><td>🍤 Tempura Masa omakase 晚餐 <span style="background:#43a047;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle">✅ 已付</span></td><td>6,125</td><td>49,000</td><td>6/11 D2｜¥31,000/人×8（含訂位費）via TABLEALL｜NT$49,000（已確認）</td></tr>
         <tr style="background:#fffde7"><td>🍽 其他餐飲 <span style="background:#f9a825;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle">估</span></td><td>~3,500</td><td>~28,000</td><td>海鮮丼・湯咖哩・拉麵等（登別・函館旅館含早晚餐，其餘自費）</td></tr>
         <tr style="background:#fffde7"><td>🎟 景點門票 <span style="background:#f9a825;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle">估</span></td><td>~2,200</td><td>~17,600</td><td>有珠山纜車、遊覽船、熊牧場、五稜郭等</td></tr>
@@ -651,6 +675,22 @@
         <tr style="background:var(--green-pale)"><td class="budget-total">合計（含機票）</td><td class="budget-total">~NT$84,333</td><td class="budget-total">~NT$674,664</td><td></td></tr>
       </tbody>
     </table>
+
+    <!-- 手機：卡片 -->
+    <div class="budget-cards">
+      <div class="bc-item"><div class="bc-header"><div class="bc-label">✈️ 去程 BR116（長榮，已訂）</div><div class="bc-amounts"><div class="bc-per">NT$13,493</div><div class="bc-total">8人 NT$107,946</div></div></div><div class="bc-note">易遊網 EQBHRC｜TPE→CTS</div></div>
+      <div class="bc-item"><div class="bc-header"><div class="bc-label">✈️ 回程 JX861（星宇，已訂）</div><div class="bc-amounts"><div class="bc-per">NT$11,128</div><div class="bc-total">8人 NT$89,024</div></div></div><div class="bc-note">EQM6MS｜HKD→TPE</div></div>
+      <div class="bc-item"><div class="bc-header"><div class="bc-label">🏨 住宿 9晚（已訂）</div><div class="bc-amounts"><div class="bc-per">NT$41,894</div><div class="bc-total">8人 NT$335,153</div></div></div><div class="bc-note">札幌NT$85,309＋洞爺湖NT$70,223＋登別NT$64,926＋函館NT$114,695</div></div>
+      <div class="bc-item"><div class="bc-header"><div class="bc-label">🚆 JR Pass（已訂✅）</div><div class="bc-amounts"><div class="bc-per">NT$4,347</div><div class="bc-total">8人 NT$36,515</div></div></div><div class="bc-note">Klook YFS021264・含 No-show Refund NT$1,739</div></div>
+      <div class="bc-item confirmed"><div class="bc-header"><div class="bc-label">🚆 JR 機場快線 ✅已付</div><div class="bc-amounts"><div class="bc-per">NT$478</div><div class="bc-total">8人 NT$3,820</div></div></div><div class="bc-note">KKday｜#26KK279750466（NT$1,884）+ #26KK274950086（NT$1,936）</div></div>
+      <div class="bc-item estimated"><div class="bc-header"><div class="bc-label">🚆 JR 個別車票（估）</div><div class="bc-amounts"><div class="bc-per">~NT$411</div><div class="bc-total">8人 ~NT$3,288</div></div></div><div class="bc-note">小樽往返¥1,500＋道南補票¥370（/人）・現場購</div></div>
+      <div class="bc-item estimated"><div class="bc-header"><div class="bc-label">🚌 機場巴士（估）</div><div class="bc-amounts"><div class="bc-per">~NT$97</div><div class="bc-total">8人 ~NT$776</div></div></div><div class="bc-note">函館機場利木津巴士</div></div>
+      <div class="bc-item confirmed"><div class="bc-header"><div class="bc-label">🍤 Tempura Masa ✅已付</div><div class="bc-amounts"><div class="bc-per">NT$6,125</div><div class="bc-total">8人 NT$49,000</div></div></div><div class="bc-note">6/11 D2｜¥31,000/人×8 via TABLEALL｜NT$49,000</div></div>
+      <div class="bc-item estimated"><div class="bc-header"><div class="bc-label">🍽 其他餐飲（估）</div><div class="bc-amounts"><div class="bc-per">~NT$3,500</div><div class="bc-total">8人 ~NT$28,000</div></div></div><div class="bc-note">海鮮丼・湯咖哩・拉麵等（旅館已含部分早晚餐）</div></div>
+      <div class="bc-item estimated"><div class="bc-header"><div class="bc-label">🎟 景點門票（估）</div><div class="bc-amounts"><div class="bc-per">~NT$2,200</div><div class="bc-total">8人 ~NT$17,600</div></div></div><div class="bc-note">有珠山纜車・遊覽船・熊牧場・五稜郭等</div></div>
+      <div class="bc-item estimated"><div class="bc-header"><div class="bc-label">📱 SIM 卡（估）</div><div class="bc-amounts"><div class="bc-per">~NT$660</div><div class="bc-total">8人 ~NT$5,280</div></div></div><div class="bc-note">10天吃到飽 SIM・出發前台灣購</div></div>
+      <div class="bc-item total-row"><div class="bc-header"><div class="bc-label">💰 合計（含機票）</div><div class="bc-amounts"><div class="bc-per">~NT$84,333</div><div class="bc-total">8人 ~NT$674,664</div></div></div></div>
+    </div>
     <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
       <div class="tip-box success" style="flex:1;min-width:200px;margin:0">✅ <strong>已確認付款：</strong>機票 NT$196,970 ＋ 住宿 NT$335,153 ＋ JR Pass NT$36,515 ＋ 機場快線 NT$3,820 ＋ Tempura Masa NT$49,000 = <strong>NT$621,458</strong><br><small style="opacity:.8">OMO7旭川退款 JPY 178,272・包車 VAH987272 退款 ¥69,412 處理中</small></div>
       <div class="tip-box" style="flex:1;min-width:200px;margin:0"><span style="background:#f9a825;color:#fff;font-size:.7rem;padding:1px 6px;border-radius:8px;font-weight:700">估</span> <strong>其餘為預估，</strong>實際依當地消費調整</div>
