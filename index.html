@@ -119,6 +119,8 @@
   .progress-fill { height:100%; background:linear-gradient(90deg,#2d6a4f,#7b5ea7); border-radius:4px; transition:width .5s; }
   .progress-label { font-size:.75rem; color:var(--gray); margin-top:4px; display:flex; justify-content:space-between; }
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 </head>
 <body>
 
@@ -170,6 +172,7 @@
   <button class="tab-btn" onclick="showTab('checklist',this)">✅ 行前準備</button>
   <button class="tab-btn" onclick="showTab('tips',this)">💡 旅遊貼士</button>
   <button class="tab-btn" onclick="showTab('maps',this)">🗺️ 地區地圖</button>
+  <button class="tab-btn" onclick="showTab('restaurants',this)">🍽 餐廳訂位</button>
 </div>
 
 <div class="content">
@@ -197,14 +200,14 @@
         <ul class="activity-list">
           <li class="activity-item"><input type="checkbox" id="a1-1"><label for="a1-1">✈️ 長榮航空 BR116 抵達新千歲機場 (CTS)（桃園 10:10 → 新千歲 15:00），辦理入境</label></li>
           <li class="activity-item"><input type="checkbox" id="a1-2"><label for="a1-2">📱 領取 SIM 卡 ｜ 兌換 JR Pass 實體票（機場換票，<strong>勿急著啟用，等 6/13 再啟用</strong>）</label></li>
-          <li class="activity-item"><input type="checkbox" id="a1-3"><label for="a1-3">🚆 搭 JR 快速 Airport 至札幌站（約 37 分鐘）</label></li>
+          <li class="activity-item"><input type="checkbox" id="a1-3"><label for="a1-3">🚆 <strong>16:30</strong>　JR 快速 Airport 新千歲→札幌（37 分，17:08 抵達）✅ KKday 已購票</label></li>
           <li class="activity-item"><input type="checkbox" id="a1-4"><label for="a1-4">🏨 飯店 check-in，放置行李</label></li>
           <li class="activity-item"><input type="checkbox" id="a1-5"><label for="a1-5">🌳 大通公園散步、電視塔眺望市區</label></li>
           <li class="activity-item"><input type="checkbox" id="a1-6"><label for="a1-6">🍜 狸小路商店街 — 第一頓北海道味噌拉麵</label></li>
         </ul>
       </div>
       <div class="info-grid">
-        <div class="info-box"><div class="ib-label">🚆 交通</div><div class="ib-val">JR 快速 Airport<br>新千歲→札幌 NT$253</div></div>
+        <div class="info-box"><div class="ib-label">🚆 交通</div><div class="ib-val">JR 快速 Airport 新千歲→札幌<br>16:30→17:08｜NT$478/人<br><small style="color:var(--green)">✅ KKday 已訂｜#26KK279750466 &amp; #26KK274950086</small></div></div>
         <div class="info-box"><div class="ib-label">🏨 住宿</div><div class="ib-val">札幌格蘭大酒店（3晚）✅<br><small>確認號：6663114862｜含早餐</small></div></div>
       </div>
       <div class="section"><div class="section-title">📝 備註</div><textarea class="notes-area" placeholder="備註、航班到達時間..."></textarea></div>
@@ -229,10 +232,21 @@
           <li class="activity-item"><input type="checkbox" id="a2-3"><label for="a2-3">🍛 午餐：Garaku 湯咖哩（建議開店前排隊）</label></li>
           <li class="activity-item"><input type="checkbox" id="a2-4"><label for="a2-4">🛍 大丸百貨、狸小路採購伴手禮</label></li>
           <li class="activity-item"><input type="checkbox" id="a2-5"><label for="a2-5">🌃 藻岩山纜車夜景（日暮後出發）</label></li>
+          <li class="activity-item"><input type="checkbox" id="a2-6"><label for="a2-6">🍤 <strong>20:30</strong>　天ぷら成（Tempura Masa）— omakase 天婦羅晚餐 ✅ 已訂位</label></li>
         </ul>
       </div>
       <div class="info-grid">
         <div class="info-box"><div class="ib-label">🍽 必吃</div><div class="ib-val">湯咖哩・北海道軟雪糕<br>二条市場海鮮丼（早餐）</div></div>
+        <div class="info-box" style="border-left:3px solid #e65100">
+          <div class="ib-label" style="color:#e65100">🍤 晚餐訂位（已確認）</div>
+          <div class="ib-val">
+            <strong>天ぷら成 Tempura Masa</strong><br>
+            20:30｜8位｜¥31,000/人<br>
+            <small>中央区南4条西4丁目 松岡ビル1F<br>
+            著裝：男士商務休閒｜禁噴香水｜準時入座<br>
+            via TABLEALL（額外飲品現場另付）</small>
+          </div>
+        </div>
         <div class="info-box"><div class="ib-label">🏨 住宿</div><div class="ib-val">札幌市區（同上）</div></div>
       </div>
       <div class="section"><div class="section-title">📝 備註</div><textarea class="notes-area" placeholder="備註..."></textarea></div>
@@ -274,28 +288,29 @@
       <div class="day-num" style="background:#F57F17">D4</div>
       <div class="day-info">
         <div class="day-date">6月13日（六）</div>
-        <div class="day-title">🌸 札幌 → 富良野 / 美瑛</div>
-        <div class="day-tags"><span class="tag tag-nature">花田景觀</span><span class="tag tag-travel">移動日</span></div>
+        <div class="day-title">🌊 札幌 → 洞爺湖</div>
+        <div class="day-tags"><span class="tag tag-nature">湖景</span><span class="tag tag-nature">火山地形</span><span class="tag tag-travel">移動日</span></div>
       </div><span class="chevron">▾</span>
     </div>
     <div class="day-body">
       <div class="section"><div class="section-title">🗓 今日活動</div>
         <ul class="activity-list">
-          <li class="activity-item"><input type="checkbox" id="a4-1"><label for="a4-1">🚆 札幌→旭川（JR 特急スーパーカムイ 約 1.5h）</label></li>
-          <li class="activity-item"><input type="checkbox" id="a4-2"><label for="a4-2">🚗 旭川租車（強烈建議！景點分散）</label></li>
-          <li class="activity-item"><input type="checkbox" id="a4-3"><label for="a4-3">🌈 四季彩之丘 — 彩色花毯（6月盛開中）</label></li>
-          <li class="activity-item"><input type="checkbox" id="a4-4"><label for="a4-4">🌿 美瑛「拼布之路」丘陵景色</label></li>
-          <li class="activity-item"><input type="checkbox" id="a4-5"><label for="a4-5">🏡 美瑛/富良野民宿 check-in</label></li>
+          <li class="activity-item"><input type="checkbox" id="a4-1"><label for="a4-1">🚆 搭 JR 北斗號 札幌→洞爺（<strong>JR Pass Day 1 啟用</strong>，約 1.5h）</label></li>
+          <li class="activity-item"><input type="checkbox" id="a4-2"><label for="a4-2">🌋 昭和新山 — 活火山近距離觀察，步行漫遊火山地形</label></li>
+          <li class="activity-item"><input type="checkbox" id="a4-3"><label for="a4-3">🚡 有珠山ロープウェイ → 展望台（火口俯瞰，地球能量感受！）</label></li>
+          <li class="activity-item"><input type="checkbox" id="a4-4"><label for="a4-4">🚢 洞爺湖遊覽船（約 50 分，欣賞中島 ＋ 湖中火山島）</label></li>
+          <li class="activity-item"><input type="checkbox" id="a4-5"><label for="a4-5">🌸 洞爺湖湖畔散步 ＋ 溫泉街漫步</label></li>
+          <li class="activity-item"><input type="checkbox" id="a4-6"><label for="a4-6">🏨 洞爺湖萬世閣酒店 check-in（15:00 以後）</label></li>
         </ul>
       </div>
       <div class="tip-box success">
-        🌸 <strong>6月花況：</strong>罌粟花・羽扁豆・雛菊・薰衣草（下旬初開）正值多色花田盛期，比7月人少景美！
+        🌋 <strong>洞爺湖</strong>是世界地質公園認定地區，有珠山是活火山（最近一次噴發 2000 年），搭乘纜車可近距離觀察火口遺跡，是北海道最獨特的自然體驗之一！
       </div>
       <div class="info-grid">
-        <div class="info-box"><div class="ib-label">🚆 交通</div><div class="ib-val">JR スーパーカムイ 札幌→旭川<br><span style="color:var(--green);font-weight:700">🎫 JR Pass 啟用（Day 1）</span></div></div>
-        <div class="info-box"><div class="ib-label">🏨 住宿</div><div class="ib-val">OMO7旭川 by 星野集團（2晚）✅<br><small>確認號：8tz0vfzvkw｜含早餐</small></div></div>
+        <div class="info-box"><div class="ib-label">🚆 交通</div><div class="ib-val">JR 北斗號 札幌→洞爺（約 1.5h）<br><span style="color:var(--green);font-weight:700">🎫 JR Pass 啟用（Day 1）</span></div></div>
+        <div class="info-box"><div class="ib-label">🏨 住宿</div><div class="ib-val">洞爺湖萬世閣酒店（2晚）✅<br><small>確認碼：5876310951｜Booking.com</small></div></div>
       </div>
-      <div class="section"><div class="section-title">📝 備註</div><textarea class="notes-area" placeholder="備註、租車預約確認..."></textarea></div>
+      <div class="section"><div class="section-title">📝 備註</div><textarea class="notes-area" placeholder="備註、JR Pass 啟用確認..."></textarea></div>
     </div>
   </div>
 
@@ -305,56 +320,27 @@
       <div class="day-num" style="background:#E65100">D5</div>
       <div class="day-info">
         <div class="day-date">6月14日（日）</div>
-        <div class="day-title">🌻 富良野花田 & 美瑛秘境</div>
-        <div class="day-tags"><span class="tag tag-nature">花田景觀</span><span class="tag tag-food">農家甜點</span></div>
+        <div class="day-title">🌋 洞爺湖 火山地形深度遊</div>
+        <div class="day-tags"><span class="tag tag-nature">湖景</span><span class="tag tag-nature">火山地形</span><span class="tag tag-onsen">溫泉</span></div>
       </div><span class="chevron">▾</span>
     </div>
     <div class="day-body">
       <div class="section"><div class="section-title">🗓 今日活動</div>
         <ul class="activity-list">
-          <li class="activity-item"><input type="checkbox" id="a5-1"><label for="a5-1">🌻 Farm Tomita（富田農場）— 薰衣草田早覽</label></li>
-          <li class="activity-item"><input type="checkbox" id="a5-2"><label for="a5-2">🔵 白金青池（青い池）— 夢幻藍色奇景</label></li>
-          <li class="activity-item"><input type="checkbox" id="a5-3"><label for="a5-3">🌲 白髭瀑布（青池旁，十勝岳融雪瀑布）</label></li>
-          <li class="activity-item"><input type="checkbox" id="a5-4"><label for="a5-4">🌳 「ケンとメリーの木」「セブンスターの木」地標打卡</label></li>
-          <li class="activity-item"><input type="checkbox" id="a5-5"><label for="a5-5">🧀 富良野起司工廠，品嚐新鮮起司甜點</label></li>
-          <li class="activity-item"><input type="checkbox" id="a5-6"><label for="a5-6">🍦 薰衣草霜淇淋（Farm Tomita 限定）</label></li>
+          <li class="activity-item"><input type="checkbox" id="a5-1"><label for="a5-1">🌅 旅館早餐 ＋ 湖畔晨間散步（洞爺湖日出倒影絕景）</label></li>
+          <li class="activity-item"><input type="checkbox" id="a5-2"><label for="a5-2">🚡 有珠山ロープウェイ → 火口展望台（近距離觀察 2000 年噴火口遺跡）</label></li>
+          <li class="activity-item"><input type="checkbox" id="a5-3"><label for="a5-3">🐻 昭和新山熊牧場（纜車上山，觀賞棕熊互動表演）</label></li>
+          <li class="activity-item"><input type="checkbox" id="a5-4"><label for="a5-4">🚢 洞爺湖遊覽船（約 50 分，可上陸中島 ＋ 賞火山湖中島景色）</label></li>
+          <li class="activity-item"><input type="checkbox" id="a5-5"><label for="a5-5">♨️ 洞爺湖溫泉街足湯 ／ 旅館溫泉泡湯放鬆</label></li>
+          <li class="activity-item"><input type="checkbox" id="a5-6"><label for="a5-6">🎆 洞爺湖煙火（夏季每晚 20:45，免費欣賞！從旅館或湖畔皆可）</label></li>
         </ul>
       </div>
-      <!-- Klook 包車確認卡 -->
-      <div style="background:linear-gradient(135deg,#1a6b3c,#2d6a4f);color:#fff;border-radius:12px;padding:14px 18px;margin:12px 0;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px">
-        <div>
-          <div style="font-size:.73rem;opacity:.8;margin-bottom:3px;letter-spacing:.5px">✅ KLOOK 已訂購・2026/5/25</div>
-          <div style="font-weight:800;font-size:1rem">札幌包車：美瑛、富良野、登別、洞爺湖</div>
-          <div style="font-size:.82rem;opacity:.9;margin-top:5px">【一日遊】旭川 / 富良野 / 美瑛（10小時・300公里）</div>
-          <div style="font-size:.78rem;opacity:.85;margin-top:3px">車型：1–9人團 ｜ 語言：中文 ｜ 日期：6/14（日）</div>
-        </div>
-        <div style="text-align:right">
-          <div style="font-size:.72rem;opacity:.8;margin-bottom:2px">付款金額</div>
-          <div style="font-size:1.4rem;font-weight:800">¥69,412</div>
-          <div style="font-size:.72rem;opacity:.75;margin-top:2px">≈ NT$15,271</div>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:14px">
-        <div style="background:#f5f9f5;border:1px solid #c8e6c9;border-radius:8px;padding:9px 12px">
-          <div style="font-size:.68rem;color:#777;margin-bottom:2px">訂單編號</div>
-          <div style="font-weight:700;font-size:.88rem;color:var(--green)">VAH987272</div>
-        </div>
-        <div style="background:#f5f9f5;border:1px solid #c8e6c9;border-radius:8px;padding:9px 12px">
-          <div style="font-size:.68rem;color:#777;margin-bottom:2px">取消截止日</div>
-          <div style="font-weight:700;font-size:.88rem;color:var(--red)">6/11 前可取消</div>
-        </div>
-        <div style="background:#f5f9f5;border:1px solid #c8e6c9;border-radius:8px;padding:9px 12px">
-          <div style="font-size:.68rem;color:#777;margin-bottom:2px">供應商電話</div>
-          <div style="font-weight:700;font-size:.82rem;color:var(--green)">+86-13573282809</div>
-        </div>
-        <div style="background:#f5f9f5;border:1px solid #c8e6c9;border-radius:8px;padding:9px 12px">
-          <div style="font-size:.68rem;color:#777;margin-bottom:2px">供應商 Email</div>
-          <div style="font-weight:700;font-size:.78rem;color:var(--green)">86065283@qq.com</div>
-        </div>
+      <div class="tip-box">
+        🎆 <strong>洞爺湖煙火祭</strong>（4/28～10/31）是日本持續最長的煙火活動，每晚 20:45 於湖上施放約 20 分鐘，從旅館窗戶即可欣賞，完全免費！
       </div>
       <div class="info-grid">
-        <div class="info-box"><div class="ib-label">🚗 交通</div><div class="ib-val">包車（全日10小時・300公里）✅<br><small>Klook VAH987272・¥69,412 (≈NT$15,271)</small></div></div>
-        <div class="info-box"><div class="ib-label">🏨 住宿</div><div class="ib-val">OMO7旭川 by 星野集團（同上）✅</div></div>
+        <div class="info-box"><div class="ib-label">🚌 交通</div><div class="ib-val">洞爺湖地區巴士 ／ 步行<br>（旅館至昭和新山約 15 分巴士）</div></div>
+        <div class="info-box"><div class="ib-label">🏨 住宿</div><div class="ib-val">洞爺湖萬世閣酒店（同上）✅</div></div>
       </div>
       <div class="section"><div class="section-title">📝 備註</div><textarea class="notes-area" placeholder="備註..."></textarea></div>
     </div>
@@ -366,22 +352,22 @@
       <div class="day-num" style="background:#6A1B9A">D6</div>
       <div class="day-info">
         <div class="day-date">6月15日（一）</div>
-        <div class="day-title">♨️ 旭川 → 登別溫泉</div>
+        <div class="day-title">♨️ 洞爺湖 → 登別溫泉</div>
         <div class="day-tags"><span class="tag tag-onsen">溫泉</span><span class="tag tag-travel">移動日</span></div>
       </div><span class="chevron">▾</span>
     </div>
     <div class="day-body">
       <div class="section"><div class="section-title">🗓 今日活動</div>
         <ul class="activity-list">
-          <li class="activity-item"><input type="checkbox" id="a6-1"><label for="a6-1">🐧 旭山動物園（早場開園，9:30入場）</label></li>
-          <li class="activity-item"><input type="checkbox" id="a6-2"><label for="a6-2">🍜 旭川醬油拉麵午餐（聖地：蜂屋／梅光軒）</label></li>
-          <li class="activity-item"><input type="checkbox" id="a6-3"><label for="a6-3">🚆 旭川→札幌→登別（JR 特急，約 3h）</label></li>
-          <li class="activity-item"><input type="checkbox" id="a6-4"><label for="a6-4">🌋 抵達後：地獄谷黃昏散步（硫磺噴泉）</label></li>
-          <li class="activity-item"><input type="checkbox" id="a6-5"><label for="a6-5">♨️ 溫泉旅館 check-in，晚上盡情泡湯</label></li>
+          <li class="activity-item"><input type="checkbox" id="a6-1"><label for="a6-1">🌅 旅館早餐 ＋ 洞爺湖最後漫步（退房前）</label></li>
+          <li class="activity-item"><input type="checkbox" id="a6-2"><label for="a6-2">🧳 10:00 退房（行李寄放旅館或直接帶走）</label></li>
+          <li class="activity-item"><input type="checkbox" id="a6-3"><label for="a6-3">🚆 洞爺→登別（JR 北斗號，<strong>約 30 分，直達！</strong>）</label></li>
+          <li class="activity-item"><input type="checkbox" id="a6-4"><label for="a6-4">🌋 抵達後：地獄谷黃昏散步（硫磺噴泉，免費入場）</label></li>
+          <li class="activity-item"><input type="checkbox" id="a6-5"><label for="a6-5">♨️ 第一滝本館 check-in（14:00），晚上盡情泡湯</label></li>
         </ul>
       </div>
       <div class="info-grid">
-        <div class="info-box"><div class="ib-label">🚆 交通</div><div class="ib-val">旭川→登別（經札幌）約 3h<br><span style="color:var(--green);font-weight:700">🎫 JR Pass（Day 3）</span></div></div>
+        <div class="info-box"><div class="ib-label">🚆 交通</div><div class="ib-val">洞爺→登別（JR 北斗，約 30 分・直達）<br><span style="color:var(--green);font-weight:700">🎫 JR Pass（Day 3）</span></div></div>
         <div class="info-box"><div class="ib-label">🏨 住宿</div><div class="ib-val">第一滝本館（2晚）✅<br><small>確認號：5130429785｜含早餐</small></div></div>
       </div>
       <div class="section"><div class="section-title">📝 備註</div><textarea class="notes-area" placeholder="備註..."></textarea></div>
@@ -445,7 +431,7 @@
       </div>
       <div class="info-grid">
         <div class="info-box"><div class="ib-label">🚆 交通</div><div class="ib-val">JR スーパー北斗 登別→函館 約 2.5h<br><span style="color:var(--green);font-weight:700">🎫 JR Pass（Day 5）</span>・補票 ¥370/人</div></div>
-        <div class="info-box"><div class="ib-label">🏨 住宿</div><div class="ib-val">望楼NOGUCHI函館（3晚）✅<br><small>確認號：5535567627｜含早晚餐・湯の川溫泉</small></div></div>
+        <div class="info-box"><div class="ib-label">🏨 住宿</div><div class="ib-val">望楼NOGUCHI函館（2晚）✅<br><small>確認號：5535567627 &amp; 6094131150｜含早晚餐・湯の川溫泉</small></div></div>
       </div>
       <div class="section"><div class="section-title">📝 備註</div><textarea class="notes-area" placeholder="備註..."></textarea></div>
     </div>
@@ -537,9 +523,9 @@
     <ul class="route-list">
       <li class="route-item"><div class="route-dot" style="background:#e8f5e9">✈️</div><div class="route-info"><div class="ri-title">D1 ── 新千歲機場 (CTS) 入境 → 札幌</div><div class="ri-desc">長榮 BR116 10:10→15:00 ｜ 去程訂位 EQBHRC ｜ JR 快速 Airport 37分</div></div></li>
       <li class="route-item"><div class="route-dot" style="background:var(--blue-pale)">🏙</div><div class="route-info"><div class="ri-title">D1–D3 ── 札幌（3晚）+ 小樽</div><div class="ri-desc">時計台・神宮・大通公園・藻岩山 ｜ 小樽運河・三角市場</div></div></li>
-      <li class="route-item"><div class="route-dot" style="background:#FFF9C4">🌸</div><div class="route-info"><div class="ri-title">D4–D5 ── 富良野 / 美瑛（2晚）</div><div class="ri-desc">四季彩之丘・Farm Tomita・青池・拼布之路 ｜ 建議租車</div></div></li>
-      <li class="route-item"><div class="route-dot" style="background:var(--lavender-pale)">♨️</div><div class="route-info"><div class="ri-title">D6–D7 ── 旭山動物園 → 登別溫泉（2晚）</div><div class="ri-desc">旭川拉麵 ｜ 地獄谷・熊牧場・9種泉質溫泉</div></div></li>
-      <li class="route-item"><div class="route-dot" style="background:var(--blue-pale)">🏰</div><div class="route-info"><div class="ri-title">D8–D10 ── 函館（3晚）</div><div class="ri-desc">元町夜景・朝市・五稜郭・市電・金森倉庫・大沼國定公園（D9）</div></div></li>
+      <li class="route-item"><div class="route-dot" style="background:#e0f7fa">🌊</div><div class="route-info"><div class="ri-title">D4–D5 ── 洞爺湖（2晚）</div><div class="ri-desc">有珠山ロープウェイ・昭和新山・遊覽船・湖畔散步・每晚煙火</div></div></li>
+      <li class="route-item"><div class="route-dot" style="background:var(--lavender-pale)">♨️</div><div class="route-info"><div class="ri-title">D6–D7 ── 洞爺湖 → 登別溫泉（2晚）</div><div class="ri-desc">JR 直達洞爺→登別約 30分 ｜ 地獄谷・熊牧場・9種泉質溫泉</div></div></li>
+      <li class="route-item"><div class="route-dot" style="background:var(--blue-pale)">🏰</div><div class="route-info"><div class="ri-title">D8–D9 ── 函館（2晚）</div><div class="ri-desc">元町夜景・朝市・五稜郭・市電・金森倉庫・大沼國定公園（D9）</div></div></li>
       <li class="route-item"><div class="route-dot" style="background:#fce4ec">✈️</div><div class="route-info"><div class="ri-title">D10 ── 函館機場 (HKD) 出境返台</div><div class="ri-desc">星宇航空 JX861 17:45→20:55 ｜ 回程訂位 EQM6MS</div></div></li>
     </ul>
     <div class="tip-box success" style="margin-top:16px">
@@ -594,9 +580,9 @@
       <tbody>
         <tr>
           <td style="padding:7px 10px;border-bottom:1px solid #eee;color:#777">6/10</td>
-          <td style="padding:7px 10px;border-bottom:1px solid #eee">新千歲 → 札幌（快速 Airport）</td>
-          <td style="padding:7px 10px;text-align:center;border-bottom:1px solid #eee"><span style="background:#fff3e0;color:#e07a00;font-size:.7rem;padding:2px 8px;border-radius:10px;font-weight:700">個別買</span></td>
-          <td style="padding:7px 10px;text-align:right;border-bottom:1px solid #eee">¥1,150</td>
+          <td style="padding:7px 10px;border-bottom:1px solid #eee">新千歲 → 札幌（快速 Airport）16:30→17:08<br><small style="color:#666">#26KK279750466 &amp; #26KK274950086</small></td>
+          <td style="padding:7px 10px;text-align:center;border-bottom:1px solid #eee"><span style="background:#e8f5e9;color:#2e7d32;font-size:.7rem;padding:2px 8px;border-radius:10px;font-weight:700">✅ KKday</span></td>
+          <td style="padding:7px 10px;text-align:right;border-bottom:1px solid #eee;color:var(--green);font-weight:700">NT$3,820<br><small style="font-weight:400;color:#888">8人合計</small></td>
         </tr>
         <tr>
           <td style="padding:7px 10px;border-bottom:1px solid #eee;color:#777">6/12</td>
@@ -606,13 +592,13 @@
         </tr>
         <tr style="background:#f0faf3">
           <td style="padding:7px 10px;border-bottom:1px solid #d8f3dc"><strong>6/13 Day 1</strong></td>
-          <td style="padding:7px 10px;border-bottom:1px solid #d8f3dc"><strong>札幌 → 旭川（スーパーカムイ）</strong></td>
+          <td style="padding:7px 10px;border-bottom:1px solid #d8f3dc"><strong>札幌 → 洞爺（JR 北斗號）</strong></td>
           <td style="padding:7px 10px;text-align:center;border-bottom:1px solid #d8f3dc"><span style="background:#d8f3dc;color:var(--green);font-size:.7rem;padding:2px 8px;border-radius:10px;font-weight:700">🎫 Pass</span></td>
           <td style="padding:7px 10px;text-align:right;border-bottom:1px solid #d8f3dc;color:var(--green);font-weight:700">含</td>
         </tr>
         <tr style="background:#f0faf3">
           <td style="padding:7px 10px;border-bottom:1px solid #d8f3dc"><strong>6/15 Day 3</strong></td>
-          <td style="padding:7px 10px;border-bottom:1px solid #d8f3dc"><strong>旭川 → 登別（經札幌）</strong></td>
+          <td style="padding:7px 10px;border-bottom:1px solid #d8f3dc"><strong>洞爺 → 登別（JR 北斗，直達約 30分）</strong></td>
           <td style="padding:7px 10px;text-align:center;border-bottom:1px solid #d8f3dc"><span style="background:#d8f3dc;color:var(--green);font-size:.7rem;padding:2px 8px;border-radius:10px;font-weight:700">🎫 Pass</span></td>
           <td style="padding:7px 10px;text-align:right;border-bottom:1px solid #d8f3dc;color:var(--green);font-weight:700">含</td>
         </tr>
@@ -652,19 +638,21 @@
       <tbody>
         <tr><td>✈️ 去程 BR116（長榮，已訂）</td><td>~13,493</td><td>~107,946</td><td>易遊網 EQBHRC ｜ TPE→CTS</td></tr>
         <tr><td>✈️ 回程 JX861（星宇，已訂）</td><td>~11,128</td><td>~89,024</td><td>EQM6MS ｜ HKD→TPE</td></tr>
-        <tr><td>🏨 住宿 9晚（已訂）</td><td>~37,066</td><td>~296,528</td><td>含溫泉旅館2晚・函館含早晚餐</td></tr>
+        <tr><td>🏨 住宿 9晚（已訂）</td><td>~41,894</td><td>~335,153</td><td>札幌NT$85,309＋洞爺湖NT$70,223＋登別NT$64,926＋函館NT$114,695｜含溫泉旅館・函館含早晚餐</td></tr>
         <tr><td>🚆 JR Pass（已訂✅）</td><td>4,347</td><td><strong>36,515</strong></td><td>Klook YFS021264・8人實付總額（含 No-show Refund NT$1,739）</td></tr>
-        <tr style="background:#fffde7"><td>🚆 JR 個別車票 <span style="background:#f9a825;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle">估</span></td><td>~540</td><td>~4,320</td><td>機場快線¥1,150 ＋ 小樽往返¥1,500 ＋ 補票¥370（/人）・抵日購</td></tr>
+        <tr style="background:#f1f8e9"><td>🚆 JR 機場快線（新千歲→札幌）<span style="background:#43a047;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle">✅ 已付</span></td><td>478</td><td>3,820</td><td>KKday 已訂｜#26KK279750466（NT$1,884）+ #26KK274950086（NT$1,936）</td></tr>
+        <tr style="background:#fffde7"><td>🚆 JR 個別車票（小樽往返・道南補票）<span style="background:#f9a825;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle">估</span></td><td>~411</td><td>~3,288</td><td>小樽往返¥1,500＋新函館北斗→函館補票¥370（/人）・抵日現場購</td></tr>
         <tr style="background:#fffde7"><td>🚌 機場巴士 <span style="background:#f9a825;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle">估</span></td><td>~97</td><td>~776</td><td>函館機場利木津巴士</td></tr>
-        <tr><td>🚗 包車 1天（8人均攤）<span style="background:#2d6a4f;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle;margin-left:4px">✅</span></td><td>~1,909</td><td><strong>~15,271</strong></td><td>Klook VAH987272・旭川/富良野/美瑛 10h・6/14｜¥69,412・已確認</td></tr>
-        <tr style="background:#fffde7"><td>🍽 餐飲（含景點） <span style="background:#f9a825;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle">估</span></td><td>~8,000</td><td>~64,000</td><td>登別・函館旅館含早餐（部分另計）</td></tr>
-        <tr style="background:#fffde7"><td>🎟 景點門票 <span style="background:#f9a825;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle">估</span></td><td>~2,200</td><td>~17,600</td><td>動物園、纜車、五稜郭等</td></tr>
+
+        <tr style="background:#f1f8e9"><td>🍤 Tempura Masa omakase 晚餐 <span style="background:#43a047;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle">✅ 已付</span></td><td>6,125</td><td>49,000</td><td>6/11 D2｜¥31,000/人×8（含訂位費）via TABLEALL｜NT$49,000（已確認）</td></tr>
+        <tr style="background:#fffde7"><td>🍽 其他餐飲 <span style="background:#f9a825;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle">估</span></td><td>~3,500</td><td>~28,000</td><td>海鮮丼・湯咖哩・拉麵等（登別・函館旅館含早晚餐，其餘自費）</td></tr>
+        <tr style="background:#fffde7"><td>🎟 景點門票 <span style="background:#f9a825;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle">估</span></td><td>~2,200</td><td>~17,600</td><td>有珠山纜車、遊覽船、熊牧場、五稜郭等</td></tr>
         <tr style="background:#fffde7"><td>📱 SIM 卡 <span style="background:#f9a825;color:#fff;font-size:.68rem;padding:1px 6px;border-radius:8px;font-weight:700;vertical-align:middle">估</span></td><td>~660</td><td>~5,280</td><td>10天吃到飽 SIM</td></tr>
-        <tr style="background:var(--green-pale)"><td class="budget-total">合計（含機票）</td><td class="budget-total">~NT$79,454</td><td class="budget-total">~NT$635,632</td><td></td></tr>
+        <tr style="background:var(--green-pale)"><td class="budget-total">合計（含機票）</td><td class="budget-total">~NT$84,333</td><td class="budget-total">~NT$674,664</td><td></td></tr>
       </tbody>
     </table>
     <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
-      <div class="tip-box success" style="flex:1;min-width:200px;margin:0">✅ <strong>已確認付款：</strong>機票 NT$196,970 ＋ 住宿 NT$296,527 ＋ JR Pass NT$36,515 ＋ 包車 ~NT$15,271 = <strong>~NT$545,283</strong><br><small style="opacity:.8">包車費用 ¥69,412 已確認（以 NT$0.22/JPY 換算）</small></div>
+      <div class="tip-box success" style="flex:1;min-width:200px;margin:0">✅ <strong>已確認付款：</strong>機票 NT$196,970 ＋ 住宿 NT$335,153 ＋ JR Pass NT$36,515 ＋ 機場快線 NT$3,820 ＋ Tempura Masa NT$49,000 = <strong>NT$621,458</strong><br><small style="opacity:.8">OMO7旭川退款 JPY 178,272・包車 VAH987272 退款 ¥69,412 處理中</small></div>
       <div class="tip-box" style="flex:1;min-width:200px;margin:0"><span style="background:#f9a825;color:#fff;font-size:.7rem;padding:1px 6px;border-radius:8px;font-weight:700">估</span> <strong>其餘為預估，</strong>實際依當地消費調整</div>
     </div>
   </div></div>
@@ -678,18 +666,18 @@
       <div class="check-item"><input type="checkbox" id="urg1"><label for="urg1" style="color:#c62828;font-weight:700">莊淑卿 — 護照換證（6/30 到期！）</label></div>
       <div class="check-item"><input type="checkbox" id="urg2"><label for="urg2" style="color:#c62828;font-weight:700">莊靜芬 — 護照換證（7/7 到期！）</label></div>
       <div class="check-item"><input type="checkbox" id="urg3"><label for="urg3" style="color:#e65100;font-weight:700">莊麗茹 — 補填護照號碼及效期</label></div>
-      <div class="check-item"><input type="checkbox" id="urg4" checked><label for="urg4">✅ 旭川/美瑛包車預訂（D5・6/14）— Klook VAH987272・¥69,412・已確認</label></div>
+      <div class="check-item"><input type="checkbox" id="urg4" checked><label for="urg4">✅ 洞爺湖萬世閣酒店（D4–D5）— Booking.com 確認碼 5876310951｜PIN 5112</label></div>
     </div>
   </div>
   <div class="checklist-section">
     <h3>📋 訂房 / 訂票</h3>
     <div class="check-grid">
       <div class="check-item"><input type="checkbox" id="c1" checked><label for="c1">✅ 札幌格蘭大酒店（3晚）— 確認號 6663114862</label></div>
-      <div class="check-item"><input type="checkbox" id="c2" checked><label for="c2">✅ OMO7旭川 by 星野集團（2晚）— 確認號 8tz0vfzvkw</label></div>
+      <div class="check-item"><input type="checkbox" id="c2" checked><label for="c2">✅ 洞爺湖萬世閣酒店（2晚）— Booking.com 確認碼 5876310951｜PIN 5112</label></div>
       <div class="check-item"><input type="checkbox" id="c3" checked><label for="c3">✅ 第一滝本館 登別（2晚）— 確認號 5130429785</label></div>
-      <div class="check-item"><input type="checkbox" id="c4" checked><label for="c4">✅ 望楼NOGUCHI函館（3晚）— 確認號 5535567627</label></div>
+      <div class="check-item"><input type="checkbox" id="c4" checked><label for="c4">✅ 望楼NOGUCHI函館（2晚）— 確認號 5535567627 &amp; 6094131150</label></div>
       <div class="check-item"><input type="checkbox" id="c5" checked><label for="c5">✅ JR 北海道鐵路周遊券・5天（Klook 已訂）— 訂單 YFS021264・代轉號 T51877558・NT$36,515・<strong>6/13 再啟用</strong></label></div>
-      <div class="check-item"><input type="checkbox" id="c7" checked><label for="c7">✅ 旭川包車 D5 6/14（Klook 已確認）— 訂單 VAH987272・¥69,412</label></div>
+      <div class="check-item"><input type="checkbox" id="c7"><label for="c7">洞爺湖萬世閣酒店費用確認（Booking.com 確認碼 5876310951）</label></div>
       <div class="check-item"><input type="checkbox" id="c6"><label for="c6">旅遊保險投保（8人）</label></div>
     </div>
   </div>
@@ -727,27 +715,81 @@
       <iframe src="receipts/JR_klook_receipt.pdf" style="width:100%;height:480px;border:1px solid var(--border);border-radius:10px;background:#f9f9f9" title="JR Pass 收據"></iframe>
     </div>
 
-    <!-- 旭川包車 PNG -->
-    <div>
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-        <div style="background:#1565c0;color:#fff;border-radius:8px;padding:4px 10px;font-size:.75rem;font-weight:700">截圖</div>
+    <!-- KKday JR 機場快線 -->
+    <div style="margin-bottom:20px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <div style="background:#00bcd4;color:#fff;border-radius:8px;padding:4px 10px;font-size:.75rem;font-weight:700">KKday</div>
         <div>
-          <div style="font-weight:700;font-size:.95rem">旭川包車：富良野 / 美瑛 一日遊</div>
-          <div style="font-size:.78rem;color:var(--gray)">訂單 VAH987272・¥69,412（≈NT$15,271）・6/14 已確認</div>
+          <div style="font-weight:700;font-size:.95rem">JR 快速 Airport 機場快線・新千歲→札幌</div>
+          <div style="font-size:.78rem;color:var(--gray)">#26KK279750466 &amp; #26KK274950086・NT$3,820・已處理</div>
         </div>
       </div>
-      <img src="receipts/asahigawa_klook.png" alt="旭川包車 Klook 訂單" style="width:100%;border:1px solid var(--border);border-radius:10px;display:block">
+      <div style="border:1px solid #e0f7fa;border-radius:12px;overflow:hidden;font-size:.82rem">
+        <!-- KKday header -->
+        <div style="background:linear-gradient(90deg,#00bcd4,#0097a7);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:8px">
+          <span style="font-weight:800;font-size:1rem">kkday</span>
+          <span style="font-size:.75rem;opacity:.85">訂單管理 — 即將到來</span>
+        </div>
+        <!-- Order 1 -->
+        <div style="padding:14px 16px;border-bottom:1px solid #e0f7fa;background:white">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+            <div>
+              <span style="background:#e0f9ee;color:#00897b;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:6px">已處理</span>
+              <div style="font-weight:700;margin-top:5px">日本鐵路火車票</div>
+            </div>
+            <div style="font-weight:800;color:#333;font-size:.95rem">NT$1,884</div>
+          </div>
+          <div style="color:#555;margin-bottom:4px;font-size:.78rem">2026/06/10</div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font-weight:700">16:30 新千歲機場</span>
+            <span style="color:#ccc">──────</span>
+            <span style="font-weight:700">17:08 札幌（JR）</span>
+          </div>
+          <div style="margin-top:8px;font-size:.75rem;color:var(--gray)">訂單編號：#26KK279750466</div>
+        </div>
+        <!-- Order 2 -->
+        <div style="padding:14px 16px;background:white">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+            <div>
+              <span style="background:#e0f9ee;color:#00897b;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:6px">已處理</span>
+              <div style="font-weight:700;margin-top:5px">日本鐵路火車票</div>
+            </div>
+            <div style="font-weight:800;color:#333;font-size:.95rem">NT$1,936</div>
+          </div>
+          <div style="color:#555;margin-bottom:4px;font-size:.78rem">2026/06/10</div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font-weight:700">16:30 新千歲機場</span>
+            <span style="color:#ccc">──────</span>
+            <span style="font-weight:700">17:08 札幌（JR）</span>
+          </div>
+          <div style="margin-top:8px;font-size:.75rem;color:var(--gray)">訂單編號：#26KK274950086</div>
+        </div>
+        <!-- Total bar -->
+        <div style="background:#f5f5f5;padding:10px 16px;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:.78rem;color:var(--gray)">合計（2 筆訂單・8 人）</span>
+          <span style="font-weight:800;color:#00897b;font-size:.95rem">NT$3,820</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 旭川包車 PNG — 已取消 -->
+    <div style="opacity:0.6">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div style="background:#c62828;color:#fff;border-radius:8px;padding:4px 10px;font-size:.75rem;font-weight:700">已取消</div>
+        <div>
+          <div style="font-weight:700;font-size:.95rem;text-decoration:line-through">旭川包車：富良野 / 美瑛 一日遊</div>
+          <div style="font-size:.78rem;color:var(--gray)">訂單 VAH987272 已取消・退款 ¥69,412 處理中</div>
+        </div>
+      </div>
+      <img src="receipts/asahigawa_klook.png" alt="旭川包車 Klook 訂單（已取消）" style="width:100%;border:1px solid var(--border);border-radius:10px;display:block">
     </div>
   </div></div>
   <div class="day-card"><div style="padding:20px">
     <h2 style="font-size:1rem;font-weight:700;color:var(--green);margin-bottom:10px">🎫 開口票交通規劃重點</h2>
     <div class="tip-box success">
-      <strong>JR 北海道 Flexible 4日 Pass（¥16,000 ≈ NT$3,520）建議使用日：</strong><br>
-      D4：札幌→旭川 ／ D6：旭川→登別 ／ D8：登別→函館（直達）<br>
+      <strong>✅ JR 北海道 5日 Pass（Klook YFS021264 已訂，6/13 啟用）</strong><br>
+      D4 Day 1：札幌→洞爺 ／ D6 Day 3：洞爺→登別（直達約 30 分）／ D8 Day 5：登別→函館<br>
       D1（新千歲→札幌）和小樽來回不需用 Pass，刷 ICOCA/SUICA 即可。
-    </div>
-    <div class="tip-box warn" style="margin-top:10px">
-      🚗 <strong>美瑛/富良野 D4-D5 強烈建議租車：</strong>持台灣駕照需附日文譯本（在台灣監理站辦理，費用約 NT$100），租車費約 NT$1,540~1,980/日，8人分攤超划算！
     </div>
   </div></div>
   <div class="day-card"><div style="padding:20px">
@@ -761,7 +803,7 @@
     <h2 style="font-size:1rem;font-weight:700;color:var(--green);margin-bottom:10px">👴👵 長輩友善提醒</h2>
     <div class="tip-box success">
       本團有多位長輩，建議注意：每日步行量控制在 1~1.5 萬步以內 ／ 登別和函館景點交通便利，適合長輩 ／
-      旭山動物園有輪椅租借服務 ／ 函館朝市 6:00 開門，早起對長輩是難事，可晚一點去 ／
+      洞爺湖遊覽船和有珠山纜車對長輩友善，步伐輕鬆 ／ 函館朝市 6:00 開門，早起對長輩是難事，可晚一點去 ／
       大沼國定公園湖畔步道平坦無障礙，非常適合長輩漫步
     </div>
   </div></div>
@@ -827,31 +869,30 @@
     </div>
   </div>
 
-  <!-- 2. OMO7旭川 -->
+  <!-- 2. 洞爺湖萬世閣酒店 -->
   <div class="acc-card">
     <div class="acc-header">
       <div class="acc-nights">夜次 4–5 ｜ 6/13（六）～ 6/15（一）退房</div>
-      <div class="acc-name">OMO7 旭川 by 星野集團</div>
-      <div class="acc-loc">📍 旭川市</div>
+      <div class="acc-name">洞爺湖萬世閣酒店</div>
+      <div class="acc-loc">📍 洞爺湖溫泉</div>
     </div>
     <div class="acc-body">
       <div class="acc-row"><span class="acc-label">等級</span><span class="acc-val">★★★★</span></div>
-      <div class="acc-row"><span class="acc-label">房型</span><span class="acc-val">Superior Room</span></div>
       <div class="acc-row"><span class="acc-label">間數 × 夜數</span><span class="acc-val">4 間 × 2 晚</span></div>
-      <div class="acc-row"><span class="acc-label">每晚費用／間</span><span class="acc-val">NT$ 5,447</span></div>
+      <div class="acc-row"><span class="acc-label">每晚費用／間</span><span class="acc-val">NT$ 8,777</span></div>
       <div class="acc-row"><span class="acc-label">早餐</span><span class="acc-val"><span class="acc-tag">✅ 含早餐</span></span></div>
-      <div class="acc-row"><span class="acc-label">實付總額</span><span class="acc-val" style="color:var(--green);font-size:1rem">NT$ 43,578</span></div>
+      <div class="acc-row"><span class="acc-label">實付總額</span><span class="acc-val" style="color:var(--green);font-size:1rem">NT$ 70,223</span></div>
       <div class="acc-row"><span class="acc-label">收費日期</span><span class="acc-val">已收費</span></div>
       <div class="acc-timing">
         <div class="acc-timing-item"><div class="acc-timing-label">🔑 Check-in</div><div class="acc-timing-val">15:00</div></div>
         <div class="acc-timing-item"><div class="acc-timing-label">🚪 Check-out</div><div class="acc-timing-val">11:00</div></div>
       </div>
       <div class="acc-confirm">
-        <div class="conf-no">確認號：8tz0vfzvkw</div>
-        <div class="conf-phone">🌐 星野集團直訂</div>
+        <div class="conf-no">確認碼：5876310951</div>
+        <div class="conf-phone">📱 PIN：5112 ｜ Booking.com</div>
       </div>
-      <div class="acc-note">✅ 星野直訂已確認｜密碼: d1def1｜24 小時均可 check-in</div>
-      <a class="acc-link" href="https://omo-hotels.com/asahikawa/" target="_blank">🌐 官方網站 omo-hotels.com</a>
+      <div class="acc-note">✅ Booking.com 已確認｜洞爺湖湖畔景觀・溫泉旅館・每晚煙火</div>
+      <a class="acc-link" href="https://www.toyamanseikaku.jp/" target="_blank">🌐 官方網站 toyamanseikaku.jp</a>
     </div>
   </div>
 
@@ -892,21 +933,22 @@
     </div>
     <div class="acc-body">
       <div class="acc-row"><span class="acc-label">等級</span><span class="acc-val">★★★★★</span></div>
-      <div class="acc-row"><span class="acc-label">房型</span><span class="acc-val">日式客房</span></div>
-      <div class="acc-row"><span class="acc-label">間數 × 夜數</span><span class="acc-val">4 間 × 2 晚</span></div>
-      <div class="acc-row"><span class="acc-label">每晚費用／間</span><span class="acc-val">NT$ 12,839</span></div>
+      <div class="acc-row"><span class="acc-label">房型</span><span class="acc-val">和洋套房・溫泉浴池（私有湯）</span></div>
+      <div class="acc-row"><span class="acc-label">間數 × 夜數</span><span class="acc-val">4 間 × 2 晚（2低樓層 ＋ 2高樓層）</span></div>
       <div class="acc-row"><span class="acc-label">早餐</span><span class="acc-val"><span class="acc-tag gold">✅ 含早晚餐</span></span></div>
-      <div class="acc-row"><span class="acc-label">實付總額</span><span class="acc-val" style="color:var(--green);font-size:1rem">NT$ 102,714</span></div>
-      <div class="acc-row"><span class="acc-label">收費日期</span><span class="acc-val">5/31</span></div>
+      <div class="acc-row"><span class="acc-label">實付總額</span><span class="acc-val" style="color:var(--green);font-size:1rem">NT$ 114,695</span></div>
+      <div class="acc-row"><span class="acc-label">　└ 5535567627（低樓層×2）</span><span class="acc-val">NT$ 57,921（JPY 294,344）</span></div>
+      <div class="acc-row"><span class="acc-label">　└ 6094131150（高樓層×2）</span><span class="acc-val">NT$ 56,774（JPY 288,512）</span></div>
       <div class="acc-timing">
         <div class="acc-timing-item"><div class="acc-timing-label">🔑 Check-in</div><div class="acc-timing-val">15:00</div></div>
         <div class="acc-timing-item"><div class="acc-timing-label">🚪 Check-out</div><div class="acc-timing-val">11:00</div></div>
       </div>
       <div class="acc-confirm">
-        <div class="conf-no">確認號：5535567627</div>
+        <div class="conf-no">確認號：5535567627｜PIN: 7369</div>
+        <div class="conf-no">確認號：6094131150｜PIN: 1995</div>
         <div class="conf-phone">📞 +81-138-57-8585</div>
       </div>
-      <div class="acc-note">✅ Booking.com 已確認｜PIN: 7369</div>
+      <div class="acc-note">✅ Booking.com 已確認（兩筆訂單）</div>
       <a class="acc-link" href="https://www.bourou-hakodate.com/" target="_blank">🌐 官方網站 bourou-hakodate.com</a>
     </div>
   </div>
@@ -919,7 +961,7 @@
     <div class="label">🏨 住宿合計｜9 晚・4 飯店・全數已確認</div>
     <div style="font-size:.78rem;opacity:.8;margin-top:3px">同步自 hokkaido_itinerary_management.xlsx・住宿資訊</div>
   </div>
-  <div class="amount">NT$ 296,527</div>
+  <div class="amount">NT$ 335,153</div>
 </div>
 
 </div>
@@ -943,7 +985,7 @@
 </style>
 
   <div class="tip-box" style="margin-bottom:16px">
-    🗺️ <strong>行程地區總覽：</strong>新千歲入境 → 札幌・小樽 → 旭川・美瑛・富良野 → 登別 → 函館・大沼，由北向南一路玩，共 6 大地區。
+    🗺️ <strong>行程地區總覽：</strong>新千歲入境 → 札幌・小樽 → 洞爺湖（火山地形）→ 登別溫泉 → 函館・大沼，一路向南玩遍北海道，共 5 大地區。
   </div>
 
   <!-- 1. 札幌 -->
@@ -977,6 +1019,50 @@
     </div>
   </div>
 
+  <!-- 1b. 天ぷら成 Tempura Masa -->
+  <div class="map-card">
+    <div class="map-card-header">
+      <div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <span class="map-day-badge" style="background:#e65100">D2</span>
+          <span class="map-day-badge" style="background:var(--blue)">6/11 20:30</span>
+          <span class="map-day-badge" style="background:#2e7d32">✅ 已訂位</span>
+        </div>
+        <div class="map-card-title" style="margin-top:6px">🍤 天ぷら成（Tempura Masa）</div>
+        <div class="map-card-sub">札幌 omakase 天婦羅｜中央区南4条西4丁目 松岡ビル1F｜via TABLEALL</div>
+      </div>
+    </div>
+    <div style="padding:12px 20px;background:#fff8f0;border-bottom:1px solid var(--border);font-size:.82rem;line-height:1.8">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 20px">
+        <div>📅 <strong>日期：</strong>2026/6/11（四）</div>
+        <div>🕗 <strong>時間：</strong>20:30（準時入座）</div>
+        <div>👥 <strong>人數：</strong>8 位</div>
+        <div>💴 <strong>費用：</strong>¥31,000/人 × 8 = <strong>¥248,000</strong></div>
+        <div>🍽 <strong>課程：</strong>Tempura Masa omakase course</div>
+        <div>👔 <strong>著裝：</strong>男士商務休閒裝</div>
+        <div>🚫 <strong>注意：</strong>禁止噴香水</div>
+        <div>⚠️ <strong>NO SHOW：</strong>遲到 30 分鐘視為放棄，收費 100%</div>
+      </div>
+      <div style="margin-top:8px;padding:8px;background:#fff3e0;border-radius:8px;border-left:3px solid #e65100">
+        額外飲品請現場另付 ｜ 取消政策：14天前可退100%（訂位費 ¥8,000/人 不退）
+      </div>
+    </div>
+    <div class="map-spots">
+      <span class="map-spot-tag">🍤 天ぷら成 Tempura Masa</span>
+      <span class="map-spot-tag">📍 南4条西4丁目 松岡ビル1F</span>
+      <span class="map-spot-tag">🌆 薄野エリア（Susukino）</span>
+      <span class="map-spot-tag">🎟 via TABLEALL</span>
+    </div>
+    <iframe class="map-frame"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1455.7!2d141.3566!3d43.0548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0b2993e24c4689%3A0x0!2z5ぷら成!5e0!3m2!1szh-TW!2sjp!4v1"
+      title="天ぷら成 地圖"
+      allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="map-links">
+      <a class="map-link-btn map-link-gmaps" href="https://www.google.com/maps/search/天ぷら成+札幌+南4条西4丁目" target="_blank">📍 Google Maps 開啟</a>
+      <a class="map-link-btn" style="background:#e65100;color:#fff" href="https://www.tableall.com/restaurant/264" target="_blank">🍽 TABLEALL 訂位頁面</a>
+    </div>
+  </div>
+
   <!-- 2. 小樽 -->
   <div class="map-card">
     <div class="map-card-header">
@@ -1006,38 +1092,36 @@
     </div>
   </div>
 
-  <!-- 3. 旭川・美瑛・富良野 -->
+  <!-- 3. 洞爺湖 -->
   <div class="map-card">
     <div class="map-card-header">
       <div>
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
           <span class="map-day-badge">D4–D5</span>
           <span class="map-day-badge" style="background:#E65100">6/13–6/14</span>
-          <span class="map-day-badge" style="background:#2d6a4f">🚗 包車 VAH987272</span>
+          <span class="map-day-badge" style="background:#0277bd">🌊 洞爺湖萬世閣</span>
         </div>
-        <div class="map-card-title" style="margin-top:6px">🌸 旭川・美瑛・富良野</div>
-        <div class="map-card-sub">OMO7旭川 2晚・包車全日遊・10小時・300公里</div>
+        <div class="map-card-title" style="margin-top:6px">🌊 洞爺湖</div>
+        <div class="map-card-sub">洞爺湖萬世閣酒店 2晚・有珠山・昭和新山・遊覽船</div>
       </div>
     </div>
     <div class="map-spots">
-      <span class="map-spot-tag">🌈 四季彩之丘</span>
-      <span class="map-spot-tag">🌿 美瑛「拼布之路」</span>
-      <span class="map-spot-tag">🌻 Farm Tomita（富田農場）</span>
-      <span class="map-spot-tag">🔵 白金青池</span>
-      <span class="map-spot-tag">🌲 白髭瀑布</span>
-      <span class="map-spot-tag">🌳 ケンとメリーの木</span>
-      <span class="map-spot-tag">🧀 富良野起司工廠</span>
-      <span class="map-spot-tag">🐧 旭山動物園（D6 出發前）</span>
-      <span class="map-spot-tag">🏨 OMO7旭川</span>
+      <span class="map-spot-tag">🌋 有珠山ロープウェイ</span>
+      <span class="map-spot-tag">🌋 昭和新山</span>
+      <span class="map-spot-tag">🐻 昭和新山熊牧場</span>
+      <span class="map-spot-tag">🚢 洞爺湖遊覽船</span>
+      <span class="map-spot-tag">♨️ 洞爺湖溫泉街</span>
+      <span class="map-spot-tag">🎆 每晚煙火（20:45）</span>
+      <span class="map-spot-tag">🏨 洞爺湖萬世閣酒店</span>
     </div>
-    <iframe class="map-frame" style="height:400px"
-      src="https://www.openstreetmap.org/export/embed.html?bbox=141.9500%2C43.1500%2C142.8500%2C43.9500&layer=mapnik&marker=43.5500%2C142.4700"
-      title="旭川・美瑛・富良野地圖"></iframe>
+    <iframe class="map-frame"
+      src="https://maps.google.com/maps?q=42.5956,140.7979&t=m&z=13&output=embed"
+      title="洞爺湖地圖"></iframe>
     <div class="map-links">
-      <a class="map-link-btn map-link-gmaps" href="https://www.google.com/maps/@43.55,142.47,10z" target="_blank">📍 Google Maps 開啟（廣域）</a>
-      <a class="map-link-btn map-link-osm" href="https://www.openstreetmap.org/#map=10/43.55/142.47" target="_blank">🗺 OpenStreetMap</a>
-      <a class="map-link-btn" style="background:#fbbc04;color:#333" href="https://www.google.com/maps/search/美瑛+観光" target="_blank">🔍 搜尋美瑛景點</a>
-      <a class="map-link-btn" style="background:#fbbc04;color:#333" href="https://www.google.com/maps/place/Farm+Tomita/@43.3283,142.3857,14z" target="_blank">🌻 Farm Tomita</a>
+      <a class="map-link-btn map-link-gmaps" href="https://www.google.com/maps/@42.5956,140.7979,13z" target="_blank">📍 Google Maps 開啟</a>
+      <a class="map-link-btn map-link-osm" href="https://www.openstreetmap.org/#map=13/42.5956/140.7979" target="_blank">🗺 OpenStreetMap</a>
+      <a class="map-link-btn" style="background:#fbbc04;color:#333" href="https://www.google.com/maps/place/Mt.+Usu" target="_blank">🌋 有珠山</a>
+      <a class="map-link-btn" style="background:#fbbc04;color:#333" href="https://www.google.com/maps/place/Showa-shinzan" target="_blank">🌋 昭和新山</a>
     </div>
   </div>
 
@@ -1079,7 +1163,7 @@
           <span class="map-day-badge" style="background:#00695C">6/17–6/19</span>
         </div>
         <div class="map-card-title" style="margin-top:6px">🏰 函館</div>
-        <div class="map-card-sub">望楼NOGUCHI函館 3晚（含早晚餐）・湯の川溫泉・HKD 出境</div>
+        <div class="map-card-sub">望楼NOGUCHI函館 2晚（含早晚餐）・湯の川溫泉・HKD 出境</div>
       </div>
     </div>
     <div class="map-spots">
@@ -1144,6 +1228,7 @@
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.getElementById('tab-' + name).classList.add('active');
     btn.classList.add('active');
+    if (name === 'maps') setTimeout(initFuranoMap, 50);
   }
   function toggleDay(id) {
     document.getElementById(id).classList.toggle('open');
@@ -1159,5 +1244,188 @@
     ta.addEventListener('input', () => localStorage.setItem(key, ta.value));
   });
 </script>
+
+<!-- ===== TAB: RESTAURANTS ===== -->
+<div id="tab-restaurants" class="tab-panel">
+<style>
+  .rest-hero { width:100%; height:320px; object-fit:cover; display:block; }
+  .rest-card { background:white; border-radius:18px; box-shadow:var(--shadow); overflow:hidden; margin-bottom:28px; }
+  .rest-card-header { padding:20px 24px 16px; border-bottom:1px solid var(--border); }
+  .rest-badge-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+  .rest-badge { font-size:.72rem; font-weight:700; padding:3px 12px; border-radius:12px; }
+  .rest-confirmed { background:#e8f5e9; color:#2e7d32; }
+  .rest-genre    { background:#fff3e0; color:#e65100; }
+  .rest-location { background:#e3f2fd; color:#1565c0; }
+  .rest-name-ja  { font-size:1.4rem; font-weight:800; letter-spacing:.04em; }
+  .rest-name-en  { font-size:.88rem; color:var(--gray); margin-top:2px; }
+  .rest-gallery  { display:grid; grid-template-columns:repeat(3,1fr); gap:3px; }
+  .rest-gallery img { width:100%; height:160px; object-fit:cover; display:block; cursor:pointer; transition:opacity .2s; }
+  .rest-gallery img:hover { opacity:.85; }
+  .rest-gallery-wide { grid-column:span 2; }
+  .rest-info     { padding:18px 24px; display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; border-top:1px solid var(--border); }
+  .rest-info-item { font-size:.82rem; line-height:1.6; }
+  .rest-info-label { font-weight:700; color:var(--gray); font-size:.72rem; letter-spacing:.05em; text-transform:uppercase; }
+  .rest-booking  { padding:16px 24px; background:linear-gradient(135deg,#fff8f0,#fff3e0); border-top:1px solid #ffe0b2; }
+  .rest-booking-title { font-weight:800; font-size:.88rem; color:#e65100; margin-bottom:10px; }
+  .rest-booking-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  .rest-booking-item { background:white; border-radius:10px; padding:10px 12px; text-align:center; border:1px solid #ffe0b2; }
+  .rest-booking-val  { font-size:1rem; font-weight:800; color:#e65100; }
+  .rest-booking-key  { font-size:.68rem; color:var(--gray); margin-top:2px; }
+  .rest-rules    { margin:12px 24px 0; padding:12px 16px; background:#fff8f0; border-radius:10px; border-left:3px solid #e65100; font-size:.78rem; line-height:1.9; }
+  .rest-desc     { padding:16px 24px; font-size:.82rem; line-height:1.8; color:#444; border-top:1px solid var(--border); }
+  .rest-desc p   { margin:0 0 10px; }
+  .rest-links    { display:flex; gap:8px; padding:12px 24px 18px; flex-wrap:wrap; border-top:1px solid var(--border); }
+  .rest-link-btn { display:inline-flex; align-items:center; gap:6px; font-size:.78rem; font-weight:700; padding:7px 16px; border-radius:10px; text-decoration:none; }
+  .rest-empty    { text-align:center; color:var(--gray); padding:40px 20px; font-size:.9rem; }
+  @media(max-width:600px){
+    .rest-gallery { grid-template-columns:repeat(2,1fr); }
+    .rest-gallery-wide { grid-column:span 1; }
+    .rest-booking-grid { grid-template-columns:repeat(2,1fr); }
+    .rest-info { grid-template-columns:1fr; }
+    .rest-hero { height:200px; }
+    .rest-gallery img { height:120px; }
+  }
+</style>
+
+  <div class="tip-box" style="margin-bottom:20px">
+    🍽 <strong>已訂位餐廳：</strong>目前共 <strong>1</strong> 間餐廳已確認訂位。享用北海道頂級食材，請務必準時入座！
+  </div>
+
+  <!-- ── 天ぷら成 Tempura Masa ── -->
+  <div class="rest-card">
+
+    <!-- Hero image -->
+    <img class="rest-hero"
+      src="https://d267qvt8mf7rfa.cloudfront.net/restaurant/264/mainImage.jpg"
+      alt="天ぷら成 Tempura Masa — 札幌薄野 omakase 天婦羅"
+      onerror="this.style.display='none'">
+
+    <!-- Header -->
+    <div class="rest-card-header">
+      <div class="rest-badge-row">
+        <span class="rest-badge rest-confirmed">✅ 已確認訂位</span>
+        <span class="rest-badge rest-genre">🍤 Tempura・Omakase</span>
+        <span class="rest-badge rest-location">📍 札幌・薄野</span>
+        <span class="rest-badge" style="background:#e3f2fd;color:#1565c0">D2 ｜ 6/11（四）</span>
+      </div>
+      <div class="rest-name-ja">天ぷら 成</div>
+      <div class="rest-name-en">Tempura Masa — Sapporo's Premier Ezomae Tempura</div>
+    </div>
+
+    <!-- Photo gallery -->
+    <div class="rest-gallery">
+      <img class="rest-gallery-wide"
+        src="https://d267qvt8mf7rfa.cloudfront.net/restaurant/264/cuisine/3304.jpg"
+        alt="天ぷら成 料理" onerror="this.style.display='none'">
+      <img src="https://d267qvt8mf7rfa.cloudfront.net/restaurant/264/3295.jpg"
+        alt="天ぷら成 餐廳空間" onerror="this.style.display='none'">
+      <img src="https://d267qvt8mf7rfa.cloudfront.net/restaurant/264/cuisine/3305.jpg"
+        alt="天ぷら成 料理2" onerror="this.style.display='none'">
+      <img src="https://d267qvt8mf7rfa.cloudfront.net/restaurant/264/3296.jpg"
+        alt="天ぷら成 擺盤" onerror="this.style.display='none'">
+      <img src="https://d267qvt8mf7rfa.cloudfront.net/restaurant/264/restaurantItem/3306.jpg"
+        alt="天ぷら成 北海道食材" onerror="this.style.display='none'">
+      <img src="https://d267qvt8mf7rfa.cloudfront.net/restaurant/264/restaurantItem/3307.jpg"
+        alt="天ぷら成 食材2" onerror="this.style.display='none'">
+    </div>
+
+    <!-- Booking details -->
+    <div class="rest-booking">
+      <div class="rest-booking-title">📋 訂位詳情</div>
+      <div class="rest-booking-grid">
+        <div class="rest-booking-item">
+          <div class="rest-booking-val">6/11（四）</div>
+          <div class="rest-booking-key">日期</div>
+        </div>
+        <div class="rest-booking-item">
+          <div class="rest-booking-val">20:30</div>
+          <div class="rest-booking-key">入座時間</div>
+        </div>
+        <div class="rest-booking-item">
+          <div class="rest-booking-val">8 位</div>
+          <div class="rest-booking-key">人數</div>
+        </div>
+        <div class="rest-booking-item">
+          <div class="rest-booking-val">¥31,000</div>
+          <div class="rest-booking-key">每人（含訂位費¥8,000）</div>
+        </div>
+        <div class="rest-booking-item">
+          <div class="rest-booking-val">¥248,000</div>
+          <div class="rest-booking-key">總計（8人）</div>
+        </div>
+        <div class="rest-booking-item">
+          <div class="rest-booking-val">hunt kao</div>
+          <div class="rest-booking-key">訂位姓名</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rules -->
+    <div class="rest-rules">
+      ⚠️ <strong>重要提醒：</strong><br>
+      👔 著裝：男士商務休閒裝（Business Casual）必須遵守<br>
+      🚫 禁止噴香水（請所有人注意）<br>
+      ⏰ 遲到 30 分鐘以上視為 NO SHOW，收取全額費用並終止會籍<br>
+      🍶 額外飲品（酒水等）請現場另付給餐廳<br>
+      ❓ 如需更改訂位，請聯絡 TABLEALL（<a href="mailto:info@tableall.com" style="color:#e65100">info@tableall.com</a>），勿直接聯絡餐廳
+    </div>
+
+    <!-- Restaurant info -->
+    <div class="rest-info">
+      <div class="rest-info-item">
+        <div class="rest-info-label">主廚</div>
+        村井 正行（Masayuki Murai）
+      </div>
+      <div class="rest-info-item">
+        <div class="rest-info-label">料理風格</div>
+        蝦夷前天婦羅（Ezomae Tempura）― 北海道頂級海鮮・野菜
+      </div>
+      <div class="rest-info-item">
+        <div class="rest-info-label">地址</div>
+        〒064-0804 札幌市中央区南4条西4丁目 松岡ビル1F<br>
+        <small style="color:var(--gray)">※ 入口在 薄野浪花亭（Naniwatei）店內，往左後方走</small>
+      </div>
+      <div class="rest-info-item">
+        <div class="rest-info-label">營業時間</div>
+        Lunch 12:30PM｜Dinner 6:00PM・8:30PM<br>
+        <small style="color:var(--gray)">週日公休</small>
+      </div>
+      <div class="rest-info-item">
+        <div class="rest-info-label">課程內容</div>
+        季節小菜 4 道 → 海鮮天婦羅 6 道 → 野菜天婦羅 6 道 → 炊飯（髮蟹/季節食材）→ 甜點
+      </div>
+      <div class="rest-info-item">
+        <div class="rest-info-label">取消政策</div>
+        14天前：退100%（訂位費不退）<br>
+        7天前：退20%｜48小時內：0%
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="rest-desc">
+      <p>天ぷら成是一間「餐廳中的餐廳」，藏身於薄野浪花亭（1962年創業）深處。餐廳名稱以天婦羅金德（Kondo）的油與麵粉研磨成墨汁書寫而成，傳承師門精神。</p>
+      <p>主廚村井正行專注於展現北海道當地食材的極致魅力，以「蝦夷前天婦羅」為概念，使用帶廣蘆筍、函館港直送海鮮、當季山菜等，呈現獨一無二的北海道風味天婦羅懷石料理。炸油採用無焙煎白榨芝麻油（3）與淡焙煎芝麻油（1）調配，成就輕盈不膩的炸衣。</p>
+      <p>招牌必食：🦎 <strong>穴子（海鰻）小卷壽司</strong> ― 以醬汁天婦羅穴子配清脆小黃瓜，包裹烤紫菜，絕妙滋味令人難忘。</p>
+    </div>
+
+    <!-- Links -->
+    <div class="rest-links">
+      <a class="rest-link-btn" style="background:#e65100;color:#fff"
+        href="https://www.tableall.com/restaurant/264" target="_blank">🍽 TABLEALL 餐廳頁面</a>
+      <a class="rest-link-btn" style="background:#4285F4;color:#fff"
+        href="https://www.google.com/maps/search/天ぷら成+札幌+南4条西4丁目+松岡ビル" target="_blank">📍 Google Maps</a>
+      <a class="rest-link-btn" style="background:#34a853;color:#fff"
+        href="https://www.tableall.com/user/bookings" target="_blank">📋 我的訂位紀錄</a>
+    </div>
+
+  </div>
+
+  <!-- ── 尚未有其他餐廳訂位 ── -->
+  <div style="text-align:center;padding:24px 0 12px;color:var(--gray);font-size:.85rem">
+    🔖 如有更多餐廳確認訂位，將陸續加入本頁面
+  </div>
+
+</div>
+
 </body>
 </html>
