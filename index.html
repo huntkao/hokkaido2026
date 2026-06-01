@@ -173,6 +173,7 @@
   <button class="tab-btn" onclick="showTab('tips',this)">💡 旅遊貼士</button>
   <button class="tab-btn" onclick="showTab('maps',this)">🗺️ 地區地圖</button>
   <button class="tab-btn" onclick="showTab('restaurants',this)">🍽 餐廳訂位</button>
+  <button class="tab-btn" onclick="showTab('hotels',this)">🏩 飯店介紹</button>
 </div>
 
 <div class="content">
@@ -295,12 +296,14 @@
     <div class="day-body">
       <div class="section"><div class="section-title">🗓 今日活動</div>
         <ul class="activity-list">
+          <li class="activity-item"><input type="checkbox" id="a4-0"><label for="a4-0">🛒 早上　超市採買 — 北海道草莓🍓・櫻桃🍒・哈密瓜🍈 ＋ 中餐便當（車上享用）</label></li>
           <li class="activity-item"><input type="checkbox" id="a4-1"><label for="a4-1">🚆 搭 JR 北斗號 札幌→洞爺（<strong>JR Pass Day 1 啟用</strong>，約 1.5h）</label></li>
           <li class="activity-item"><input type="checkbox" id="a4-2"><label for="a4-2">🌋 昭和新山 — 活火山近距離觀察，步行漫遊火山地形</label></li>
           <li class="activity-item"><input type="checkbox" id="a4-3"><label for="a4-3">🚡 有珠山ロープウェイ → 展望台（火口俯瞰，地球能量感受！）</label></li>
           <li class="activity-item"><input type="checkbox" id="a4-4"><label for="a4-4">🚢 洞爺湖遊覽船（約 50 分，欣賞中島 ＋ 湖中火山島）</label></li>
           <li class="activity-item"><input type="checkbox" id="a4-5"><label for="a4-5">🌸 洞爺湖湖畔散步 ＋ 溫泉街漫步</label></li>
           <li class="activity-item"><input type="checkbox" id="a4-6"><label for="a4-6">🏨 洞爺湖萬世閣酒店 check-in（15:00 以後）</label></li>
+          <li class="activity-item"><input type="checkbox" id="a4-7"><label for="a4-7">🍽 <strong>17:00〜</strong>　レストラン望羊蹄 晚餐（昭和老舗洋食・漢堡排・ポークカツレツ）</label></li>
         </ul>
       </div>
       <div class="tip-box success">
@@ -308,6 +311,7 @@
       </div>
       <div class="info-grid">
         <div class="info-box"><div class="ib-label">🚆 交通</div><div class="ib-val">JR 北斗號 札幌→洞爺（約 1.5h）<br><span style="color:var(--green);font-weight:700">🎫 JR Pass 啟用（Day 1）</span></div></div>
+        <div class="info-box"><div class="ib-label">🍽 晚餐</div><div class="ib-val"><strong>レストラン望羊蹄</strong>（ぼうようてい）<br>17:00〜20:30｜約¥2,500〜3,000/人<br><small>洞爺湖温泉36-12｜☎ 0142-75-2311<br>漢堡排・ポークカツレツ・ナポリタン</small></div></div>
         <div class="info-box"><div class="ib-label">🏨 住宿</div><div class="ib-val">洞爺湖萬世閣酒店（2晚）✅<br><small>確認碼：5876310951｜Booking.com</small></div></div>
       </div>
       <div class="section"><div class="section-title">📝 備註</div><textarea class="notes-area" placeholder="備註、JR Pass 啟用確認..."></textarea></div>
@@ -1165,6 +1169,49 @@
     </div>
   </div>
 
+  <!-- 3b. レストラン望羊蹄 -->
+  <div class="map-card">
+    <div class="map-card-header">
+      <div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <span class="map-day-badge" style="background:#F57F17">D4</span>
+          <span class="map-day-badge" style="background:var(--blue)">6/13 晚餐 17:00</span>
+        </div>
+        <div class="map-card-title" style="margin-top:6px">🍽 レストラン望羊蹄（ぼうようてい）</div>
+        <div class="map-card-sub">1946年創業 昭和老舗洋食｜洞爺湖温泉36-12｜約¥2,500〜3,000/人</div>
+      </div>
+    </div>
+    <div style="padding:12px 20px;background:#fff8f0;border-bottom:1px solid var(--border);font-size:.82rem;line-height:1.9">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 20px">
+        <div>🕔 <strong>午餐：</strong>11:00〜15:30（L.O. 14:30）</div>
+        <div>🕔 <strong>晚餐：</strong>17:00〜20:30（L.O. 19:30）</div>
+        <div>📵 <strong>定休：</strong>週三公休</div>
+        <div>📞 <strong>電話：</strong>0142-75-2311</div>
+        <div>💴 <strong>預算：</strong>¥2,500〜3,000/人</div>
+        <div>💳 <strong>付款：</strong>信用卡・QR碼 OK</div>
+      </div>
+      <div style="margin-top:8px;padding:8px;background:#fff3e0;border-radius:8px;border-left:3px solid #F57F17;font-size:.78rem">
+        🍔 招牌：鐵板漢堡排（デミグラスソース）・ポークカツレツ・ナポリタン・ホタテグラタン<br>
+        木造小屋風コテージ空間，洞爺湖湖畔懷舊氛圍，台灣旅客好評
+      </div>
+    </div>
+    <div class="map-spots">
+      <span class="map-spot-tag">🍽 レストラン望羊蹄</span>
+      <span class="map-spot-tag">📍 洞爺湖温泉36-12</span>
+      <span class="map-spot-tag">🏛 1946年創業</span>
+      <span class="map-spot-tag">🍔 昭和老舗洋食</span>
+    </div>
+    <iframe class="map-frame"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1500!2d140.7887!3d42.5437!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f738c8bde76c7b5%3A0x0!2z44Os44K544OI44Op44Oz5pyf576O!5e0!3m2!1szh-TW!2sjp!4v1"
+      title="レストラン望羊蹄 地圖"
+      allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="map-links">
+      <a class="map-link-btn map-link-gmaps" href="https://www.google.com/maps/search/レストラン望羊蹄+洞爺湖温泉36-12" target="_blank">📍 Google Maps 開啟</a>
+      <a class="map-link-btn" style="background:#00bcd4;color:#fff" href="https://autoreserve.com/zh-tw/restaurants/98DFxdjMkvB3L1s3ueNA" target="_blank">📅 AutoReserve 線上訂位</a>
+      <a class="map-link-btn map-link-osm" href="http://www.boyotei.com/" target="_blank">🌐 官方網站</a>
+    </div>
+  </div>
+
   <!-- 4. 登別 -->
   <div class="map-card">
     <div class="map-card-header">
@@ -1464,6 +1511,140 @@
   <div style="text-align:center;padding:24px 0 12px;color:var(--gray);font-size:.85rem">
     🔖 如有更多餐廳確認訂位，將陸續加入本頁面
   </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════
+     🏩 飯店介紹
+════════════════════════════════════════════ -->
+<div id="tab-hotels" class="tab-panel" style="display:none">
+<style>
+.hotel-hero { position:relative; width:100%; height:300px; border-radius:14px; overflow:hidden; margin-bottom:28px; }
+.hotel-hero img { width:100%; height:100%; object-fit:cover; }
+.hotel-hero-overlay { position:absolute; inset:0; background:linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.65)); display:flex; align-items:flex-end; padding:24px; }
+.hotel-hero-title { color:#fff; }
+.hotel-hero-title h2 { font-size:1.5rem; margin:0 0 4px; }
+.hotel-hero-title p { font-size:.85rem; margin:0; opacity:.88; }
+.hotel-section { background:#fff; border-radius:14px; box-shadow:0 2px 10px rgba(0,0,0,.07); padding:24px; margin-bottom:20px; }
+.hotel-section h3 { font-size:1.05rem; color:var(--green); margin:0 0 12px; padding-bottom:8px; border-bottom:2px solid var(--light); }
+.hotel-section p { font-size:.9rem; line-height:1.75; color:#444; margin:.5em 0; }
+.hotel-gallery { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:14px; }
+.hotel-gallery img { width:100%; height:100px; object-fit:cover; border-radius:8px; }
+.hotel-badge-row { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
+.hotel-badge { background:var(--light); color:var(--green); border-radius:20px; padding:5px 13px; font-size:.8rem; font-weight:600; }
+.hotel-room-cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:12px; margin-top:12px; }
+.hotel-room-card { background:var(--light); border-radius:10px; padding:16px; }
+.hotel-room-card h4 { font-size:.9rem; color:var(--green); margin:0 0 6px; }
+.hotel-room-card p { font-size:.83rem; color:#555; margin:0; line-height:1.6; }
+.flower-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:12px; }
+.flower-card { background:linear-gradient(135deg,#fff9f0,#fff); border:1px solid #f0d9b8; border-radius:10px; padding:14px; }
+.flower-card h4 { font-size:.88rem; color:#c07040; margin:0 0 4px; }
+.flower-card p { font-size:.82rem; color:#666; margin:0; line-height:1.6; }
+@media(max-width:640px){
+  .hotel-hero { height:200px; }
+  .hotel-gallery { grid-template-columns:repeat(2,1fr); }
+  .hotel-room-cards { grid-template-columns:1fr; }
+  .flower-grid { grid-template-columns:1fr; }
+}
+</style>
+
+<h2 style="text-align:center;margin:8px 0 20px;font-size:1.2rem">🏩 飯店介紹</h2>
+
+<!-- ── 望楼NOGUCHI函館 ── -->
+<div class="hotel-hero">
+  <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=1200&q=80" onerror="this.style.background='var(--light)'" alt="望楼NOGUCHI函館">
+  <div class="hotel-hero-overlay">
+    <div class="hotel-hero-title">
+      <h2>望楼 NOGUCHI 函館</h2>
+      <p>📍 北海道函館市湯川町1丁目17-22　｜　♨️ 湯之川溫泉</p>
+    </div>
+  </div>
+</div>
+
+<div class="hotel-badge-row">
+  <span class="hotel-badge">♨️ 天然溫泉</span>
+  <span class="hotel-badge">🍽 含早餐＋晚餐</span>
+  <span class="hotel-badge">🌊 海景客房</span>
+  <span class="hotel-badge">🏯 和風現代</span>
+  <span class="hotel-badge">📅 6/19–6/21 入住</span>
+</div>
+
+<!-- Section 1 -->
+<div class="hotel-section">
+  <h3>🏮 懷舊氛圍中，呼吸著現代的氣息</h3>
+  <p>函館・湯之川，擁有超過 <strong>350 年歷史的名湯</strong>。自戰國時代延續至今，被視為北海道現存最古老的溫泉，而望楼NOGUCHI函館正坐落於此。</p>
+  <p>飯店設計以黑底色調凝聚沉靜的氣場，巧妙融合日本傳統元素與現代感性。牆面以格子圖案加以點綴，既保留和風美學，又呈現洗練的當代品味。入住後，即可感受那份「沉浸於歷史，卻又呼吸著現代氣息」的獨特氛圍。</p>
+</div>
+
+<!-- Section 2 -->
+<div class="hotel-section">
+  <h3>✨ 執著於打造「洗練的奢華空間」</h3>
+  <p>飯店內設有 <strong>Water Side Cafe YUGEN幽玄</strong>，依水而建，可一邊欣賞日本庭園的池景，一邊享用精緻的茶點與咖啡。庭園內的「竹燈籠」隨季節點亮，夜間在燈光映照下，呈現如畫一般的靜謐之美。</p>
+  <p>飯店文化中融入了日本精神中不可或缺的「玩心」——以真誠的款待精神與細膩的幽默感，在旅程中為您帶來意想不到的驚喜與愉悅。</p>
+</div>
+
+<!-- Section 3 -->
+<div class="hotel-section">
+  <h3>🦑 根植於道南與青函核心——函館</h3>
+  <p>函館是連結北海道與本州的關鍵門戶，擁有豐富的歷史文化底蘊。望楼NOGUCHI函館的 <strong>WAMODERN客房</strong> 以日本傳統的「和」為靈感，融合現代生活的機能美學，打造出溫柔沉靜、宛如時間停駐的居住體驗。</p>
+  <p>餐飲方面，主廚以北海道在地食材為核心，提供 <strong>創意會席料理</strong>——以道南漁港直送的新鮮海鮮、函館近郊農場栽種的蔬果，呈現隨季節更迭的懷石饗宴，讓味覺也能感受這片土地的深厚魅力。</p>
+</div>
+
+<!-- Section 4 房型 -->
+<div class="hotel-section">
+  <h3>🛏 三款房型，回應每一次不同風格的旅程</h3>
+  <p>望楼NOGUCHI函館深信，旅行的型態每次都不一樣——有時想完全放鬆，有時渴望探索，有時希望在奢華中與摯愛共度時光。因此精心設計三款截然不同的房型風格，以回應每一種旅行心情。</p>
+  <div class="hotel-room-cards">
+    <div class="hotel-room-card">
+      <h4>🌊 Suite High-Floor</h4>
+      <p>高樓海景和洋套房，坐擁函館灣全景，附設溫泉浴池，日式與西式設計兼備</p>
+    </div>
+    <div class="hotel-room-card">
+      <h4>🌿 Suite Low-Floor</h4>
+      <p>低樓庭園和洋套房，近距離感受日本庭園四季之美，靜謐私密，附設溫泉浴池</p>
+    </div>
+    <div class="hotel-room-card">
+      <h4>🏯 WAMODERN</h4>
+      <p>和風現代客房，日本傳統美學與現代機能完美結合，充滿質樸溫潤的空間感</p>
+    </div>
+  </div>
+  <p style="margin-top:14px;font-size:.85rem;color:var(--gray)">✅ 我們預訂：Suite Low-Floor × 2間（5535567627）+ Suite High-Floor × 2間（6094131150）</p>
+</div>
+
+<!-- Section 5 花季 -->
+<div class="hotel-section">
+  <h3>🌸 初夏花季指南</h3>
+  <p>函館的初夏是花朵次第盛開的季節，以下是飯店周邊的賞花亮點：</p>
+  <div class="flower-grid">
+    <div class="flower-card">
+      <h4>🟣 五稜郭公園 — 紫藤</h4>
+      <p>盛開時期：<strong>5月下旬</strong><br>歷史要塞外護城河沿岸，紫藤垂掛如紫色瀑布，蔚為壯觀。</p>
+    </div>
+    <div class="flower-card">
+      <h4>🌹 舊英國領事館 — 玫瑰</h4>
+      <p>盛開時期：<strong>6月中旬</strong><br>明治時代的洋館庭園中，逾百種玫瑰競相盛開，洋溢典雅的異國風情。</p>
+    </div>
+    <div class="flower-card">
+      <h4>🌺 惠山（えさん）— 杜鵑</h4>
+      <p>盛開時期：<strong>6月上旬</strong><br>函館近郊惠山火山丘陵，漫山遍野杜鵑花海，視野遼闊壯美。</p>
+    </div>
+    <div class="flower-card">
+      <h4>🪷 大沼國定公園 — 睡蓮</h4>
+      <p>盛開時期：<strong>6月下旬</strong><br>大沼湖面點點白蓮，映照駒ヶ岳火山倒影，如詩如畫。</p>
+    </div>
+  </div>
+  <p style="margin-top:12px;font-size:.85rem;color:var(--gray)">🗓 我們入住時間 6/19–6/21，舊英國領事館玫瑰正值盛放期，值得安排前往！</p>
+</div>
+
+<!-- Links -->
+<div class="rest-links" style="margin-top:8px;margin-bottom:32px">
+  <a class="rest-link-btn" style="background:#2d6a4f;color:#fff"
+    href="https://www.ho-noguchi.jp/hakodate/" target="_blank">🌐 官方網站</a>
+  <a class="rest-link-btn" style="background:#4285F4;color:#fff"
+    href="https://www.google.com/maps/place/望楼NOGUCHI函館" target="_blank">📍 Google Maps</a>
+  <a class="rest-link-btn" style="background:#003580;color:#fff"
+    href="https://www.booking.com" target="_blank">📋 Booking.com 訂單</a>
+</div>
 
 </div>
 
