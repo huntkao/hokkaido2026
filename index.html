@@ -1517,134 +1517,341 @@
 <!-- ══════════════════════════════════════════
      🏩 飯店介紹
 ════════════════════════════════════════════ -->
-<div id="tab-hotels" class="tab-panel" style="display:none">
+<div id="tab-hotels" class="tab-panel">
 <style>
-.hotel-hero { position:relative; width:100%; height:300px; border-radius:14px; overflow:hidden; margin-bottom:28px; }
-.hotel-hero img { width:100%; height:100%; object-fit:cover; }
-.hotel-hero-overlay { position:absolute; inset:0; background:linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.65)); display:flex; align-items:flex-end; padding:24px; }
-.hotel-hero-title { color:#fff; }
-.hotel-hero-title h2 { font-size:1.5rem; margin:0 0 4px; }
-.hotel-hero-title p { font-size:.85rem; margin:0; opacity:.88; }
-.hotel-section { background:#fff; border-radius:14px; box-shadow:0 2px 10px rgba(0,0,0,.07); padding:24px; margin-bottom:20px; }
-.hotel-section h3 { font-size:1.05rem; color:var(--green); margin:0 0 12px; padding-bottom:8px; border-bottom:2px solid var(--light); }
-.hotel-section p { font-size:.9rem; line-height:1.75; color:#444; margin:.5em 0; }
-.hotel-gallery { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:14px; }
-.hotel-gallery img { width:100%; height:100px; object-fit:cover; border-radius:8px; }
-.hotel-badge-row { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
-.hotel-badge { background:var(--light); color:var(--green); border-radius:20px; padding:5px 13px; font-size:.8rem; font-weight:600; }
-.hotel-room-cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:12px; margin-top:12px; }
-.hotel-room-card { background:var(--light); border-radius:10px; padding:16px; }
-.hotel-room-card h4 { font-size:.9rem; color:var(--green); margin:0 0 6px; }
-.hotel-room-card p { font-size:.83rem; color:#555; margin:0; line-height:1.6; }
-.flower-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:12px; }
-.flower-card { background:linear-gradient(135deg,#fff9f0,#fff); border:1px solid #f0d9b8; border-radius:10px; padding:14px; }
-.flower-card h4 { font-size:.88rem; color:#c07040; margin:0 0 4px; }
-.flower-card p { font-size:.82rem; color:#666; margin:0; line-height:1.6; }
+/* ── 飯店介紹 styles ── */
+.hi-page-title { text-align:center; margin:8px 0 24px; font-size:1.2rem; }
+
+/* 飯店大卡片 */
+.hi-hotel-card { background:#fff; border-radius:16px; box-shadow:0 3px 14px rgba(0,0,0,.09); overflow:hidden; margin-bottom:28px; }
+.hi-hotel-card-header { position:relative; height:200px; background:linear-gradient(135deg,#1a3a2a,#2d6a4f); display:flex; align-items:flex-end; }
+.hi-hotel-card-header::before { content:'🏯'; position:absolute; top:50%; left:50%; transform:translate(-50%,-60%); font-size:4rem; opacity:.25; }
+.hi-hotel-card-header-inner { padding:18px 20px; z-index:1; }
+.hi-hotel-card-header h2 { color:#fff; font-size:1.3rem; margin:0 0 4px; }
+.hi-hotel-card-header p { color:rgba(255,255,255,.82); font-size:.82rem; margin:0; }
+
+/* 徽章 */
+.hi-badge-row { display:flex; flex-wrap:wrap; gap:7px; padding:16px 20px 0; }
+.hi-badge { background:#f0f7f3; color:#2d6a4f; border-radius:20px; padding:4px 12px; font-size:.78rem; font-weight:600; border:1px solid #c5e0d0; }
+
+/* 資訊卡片 grid */
+.hi-cards-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px; padding:16px 20px; }
+.hi-card { background:#f8faf9; border:1px solid #e0ede6; border-radius:12px; padding:16px; }
+.hi-card-icon { font-size:1.5rem; margin-bottom:8px; }
+.hi-card h4 { font-size:.9rem; color:#1a3a2a; margin:0 0 6px; }
+.hi-card p { font-size:.82rem; color:#555; margin:0; line-height:1.65; }
+
+/* 訂房資訊 */
+.hi-booking-bar { margin:4px 20px 20px; background:#f0f7f3; border-radius:10px; padding:14px 16px; font-size:.85rem; color:#2d6a4f; display:flex; flex-wrap:wrap; gap:8px 24px; }
+.hi-booking-bar span { display:flex; align-items:center; gap:5px; }
+
+/* 花季 grid */
+.hi-flower-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; padding:0 20px 20px; }
+.hi-flower-card { background:linear-gradient(135deg,#fff9f4,#fff); border:1px solid #f0d8b8; border-radius:10px; padding:13px; }
+.hi-flower-card h4 { font-size:.85rem; color:#b05a20; margin:0 0 4px; }
+.hi-flower-card p { font-size:.8rem; color:#666; margin:0; line-height:1.6; }
+
+/* section 標題 */
+.hi-section-label { font-size:.78rem; font-weight:700; color:#2d6a4f; letter-spacing:.05em; text-transform:uppercase; padding:18px 20px 6px; border-top:1px solid #e8f0eb; margin-top:4px; }
+
+/* 連結按鈕 */
+.hi-links { display:flex; flex-wrap:wrap; gap:8px; padding:0 20px 20px; }
+.hi-link-btn { display:inline-flex; align-items:center; gap:5px; padding:8px 14px; border-radius:8px; font-size:.82rem; font-weight:600; text-decoration:none; color:#fff; }
+
 @media(max-width:640px){
-  .hotel-hero { height:200px; }
-  .hotel-gallery { grid-template-columns:repeat(2,1fr); }
-  .hotel-room-cards { grid-template-columns:1fr; }
-  .flower-grid { grid-template-columns:1fr; }
+  .hi-hotel-card-header { height:150px; }
+  .hi-cards-grid { grid-template-columns:1fr; }
+  .hi-flower-grid { grid-template-columns:1fr; }
 }
 </style>
 
-<h2 style="text-align:center;margin:8px 0 20px;font-size:1.2rem">🏩 飯店介紹</h2>
+<h2 class="hi-page-title">🏩 飯店介紹</h2>
 
-<!-- ── 望楼NOGUCHI函館 ── -->
-<div class="hotel-hero">
-  <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=1200&q=80" onerror="this.style.background='var(--light)'" alt="望楼NOGUCHI函館">
-  <div class="hotel-hero-overlay">
-    <div class="hotel-hero-title">
+<!-- ══ 望楼NOGUCHI函館 ══ -->
+<div class="hi-hotel-card">
+
+  <!-- Header -->
+  <div class="hi-hotel-card-header">
+    <div class="hi-hotel-card-header-inner">
       <h2>望楼 NOGUCHI 函館</h2>
       <p>📍 北海道函館市湯川町1丁目17-22　｜　♨️ 湯之川溫泉</p>
     </div>
   </div>
-</div>
 
-<div class="hotel-badge-row">
-  <span class="hotel-badge">♨️ 天然溫泉</span>
-  <span class="hotel-badge">🍽 含早餐＋晚餐</span>
-  <span class="hotel-badge">🌊 海景客房</span>
-  <span class="hotel-badge">🏯 和風現代</span>
-  <span class="hotel-badge">📅 6/19–6/21 入住</span>
-</div>
+  <!-- 徽章 -->
+  <div class="hi-badge-row">
+    <span class="hi-badge">♨️ 天然溫泉</span>
+    <span class="hi-badge">🍽 含早餐＋晚餐</span>
+    <span class="hi-badge">🌊 海景客房</span>
+    <span class="hi-badge">🏯 和風現代</span>
+    <span class="hi-badge">📅 6/19–6/21 入住（2晚）</span>
+  </div>
 
-<!-- Section 1 -->
-<div class="hotel-section">
-  <h3>🏮 懷舊氛圍中，呼吸著現代的氣息</h3>
-  <p>函館・湯之川，擁有超過 <strong>350 年歷史的名湯</strong>。自戰國時代延續至今，被視為北海道現存最古老的溫泉，而望楼NOGUCHI函館正坐落於此。</p>
-  <p>飯店設計以黑底色調凝聚沉靜的氣場，巧妙融合日本傳統元素與現代感性。牆面以格子圖案加以點綴，既保留和風美學，又呈現洗練的當代品味。入住後，即可感受那份「沉浸於歷史，卻又呼吸著現代氣息」的獨特氛圍。</p>
-</div>
+  <!-- 訂房資訊 -->
+  <div class="hi-booking-bar">
+    <span>✅ <strong>#5535567627</strong>　Suite Low-Floor × 2間</span>
+    <span>✅ <strong>#6094131150</strong>　Suite High-Floor × 2間</span>
+    <span>📅 <strong>6/19（五）– 6/21（日）· 2晚</strong></span>
+  </div>
 
-<!-- Section 2 -->
-<div class="hotel-section">
-  <h3>✨ 執著於打造「洗練的奢華空間」</h3>
-  <p>飯店內設有 <strong>Water Side Cafe YUGEN幽玄</strong>，依水而建，可一邊欣賞日本庭園的池景，一邊享用精緻的茶點與咖啡。庭園內的「竹燈籠」隨季節點亮，夜間在燈光映照下，呈現如畫一般的靜謐之美。</p>
-  <p>飯店文化中融入了日本精神中不可或缺的「玩心」——以真誠的款待精神與細膩的幽默感，在旅程中為您帶來意想不到的驚喜與愉悅。</p>
-</div>
-
-<!-- Section 3 -->
-<div class="hotel-section">
-  <h3>🦑 根植於道南與青函核心——函館</h3>
-  <p>函館是連結北海道與本州的關鍵門戶，擁有豐富的歷史文化底蘊。望楼NOGUCHI函館的 <strong>WAMODERN客房</strong> 以日本傳統的「和」為靈感，融合現代生活的機能美學，打造出溫柔沉靜、宛如時間停駐的居住體驗。</p>
-  <p>餐飲方面，主廚以北海道在地食材為核心，提供 <strong>創意會席料理</strong>——以道南漁港直送的新鮮海鮮、函館近郊農場栽種的蔬果，呈現隨季節更迭的懷石饗宴，讓味覺也能感受這片土地的深厚魅力。</p>
-</div>
-
-<!-- Section 4 房型 -->
-<div class="hotel-section">
-  <h3>🛏 三款房型，回應每一次不同風格的旅程</h3>
-  <p>望楼NOGUCHI函館深信，旅行的型態每次都不一樣——有時想完全放鬆，有時渴望探索，有時希望在奢華中與摯愛共度時光。因此精心設計三款截然不同的房型風格，以回應每一種旅行心情。</p>
-  <div class="hotel-room-cards">
-    <div class="hotel-room-card">
-      <h4>🌊 Suite High-Floor</h4>
-      <p>高樓海景和洋套房，坐擁函館灣全景，附設溫泉浴池，日式與西式設計兼備</p>
+  <!-- 特色介紹 卡片 -->
+  <div class="hi-section-label">✦ 飯店特色</div>
+  <div class="hi-cards-grid">
+    <div class="hi-card">
+      <div class="hi-card-icon">🏮</div>
+      <h4>350年湯之川名湯</h4>
+      <p>自戰國時代延續至今，被視為北海道現存最古老的溫泉。飯店坐落其中，以黑底色調融合和風格子美學，呈現沉靜而洗練的現代氛圍。</p>
     </div>
-    <div class="hotel-room-card">
-      <h4>🌿 Suite Low-Floor</h4>
-      <p>低樓庭園和洋套房，近距離感受日本庭園四季之美，靜謐私密，附設溫泉浴池</p>
+    <div class="hi-card">
+      <div class="hi-card-icon">🍵</div>
+      <h4>Water Side Cafe YUGEN幽玄</h4>
+      <p>依水而建的庭園咖啡廳，可一邊欣賞日式池景，一邊享用精緻茶點。夜晚竹燈籠點亮，靜謐如畫。</p>
     </div>
-    <div class="hotel-room-card">
-      <h4>🏯 WAMODERN</h4>
-      <p>和風現代客房，日本傳統美學與現代機能完美結合，充滿質樸溫潤的空間感</p>
+    <div class="hi-card">
+      <div class="hi-card-icon">🦑</div>
+      <h4>道南創意會席料理</h4>
+      <p>以函館漁港直送海鮮、近郊農場蔬果為主角，呈現隨四季更迭的懷石饗宴。每一道料理都承載著道南這片土地的深厚滋味。</p>
+    </div>
+    <div class="hi-card">
+      <div class="hi-card-icon">🎭</div>
+      <h4>日式「玩心」款待文化</h4>
+      <p>飯店融入日本精神中不可或缺的「玩心」，以真誠款待與細膩幽默感，在旅程中帶來意想不到的驚喜與愉悅。</p>
     </div>
   </div>
-  <p style="margin-top:14px;font-size:.85rem;color:var(--gray)">✅ 我們預訂：Suite Low-Floor × 2間（5535567627）+ Suite High-Floor × 2間（6094131150）</p>
-</div>
 
-<!-- Section 5 花季 -->
-<div class="hotel-section">
-  <h3>🌸 初夏花季指南</h3>
-  <p>函館的初夏是花朵次第盛開的季節，以下是飯店周邊的賞花亮點：</p>
-  <div class="flower-grid">
-    <div class="flower-card">
+  <!-- 房型 -->
+  <div class="hi-section-label">🛏 房型介紹</div>
+  <div class="hi-cards-grid">
+    <div class="hi-card" style="border-color:#a8d5ba;background:#f0f9f4">
+      <div class="hi-card-icon">🌊</div>
+      <h4>Suite High-Floor　✅ 已訂 × 2間</h4>
+      <p>高樓和洋套房，坐擁函館灣全景。附設溫泉浴池，日式與西式設計兼備，是欣賞夜景的最佳選擇。</p>
+    </div>
+    <div class="hi-card" style="border-color:#a8d5ba;background:#f0f9f4">
+      <div class="hi-card-icon">🌿</div>
+      <h4>Suite Low-Floor　✅ 已訂 × 2間</h4>
+      <p>低樓庭園和洋套房，靜謐私密，近距離感受日本庭園四季之美，附設溫泉浴池，適合沉浸式療癒放鬆。</p>
+    </div>
+    <div class="hi-card">
+      <div class="hi-card-icon">🏯</div>
+      <h4>WAMODERN</h4>
+      <p>以日本傳統「和」為靈感，融合現代機能美學。溫柔沉靜的空間感，宛如時間在此停駐。</p>
+    </div>
+  </div>
+
+  <!-- 花季指南 -->
+  <div class="hi-section-label">🌸 初夏花季指南（6月入住周邊亮點）</div>
+  <div class="hi-flower-grid">
+    <div class="hi-flower-card">
       <h4>🟣 五稜郭公園 — 紫藤</h4>
-      <p>盛開時期：<strong>5月下旬</strong><br>歷史要塞外護城河沿岸，紫藤垂掛如紫色瀑布，蔚為壯觀。</p>
+      <p>盛開：<strong>5月下旬</strong><br>護城河沿岸紫藤垂掛，如紫色瀑布蔚為壯觀。</p>
     </div>
-    <div class="flower-card">
-      <h4>🌹 舊英國領事館 — 玫瑰</h4>
-      <p>盛開時期：<strong>6月中旬</strong><br>明治時代的洋館庭園中，逾百種玫瑰競相盛開，洋溢典雅的異國風情。</p>
+    <div class="hi-flower-card" style="border-color:#f4b8c8;background:linear-gradient(135deg,#fff4f7,#fff)">
+      <h4>🌹 舊英國領事館 — 玫瑰　⭐️</h4>
+      <p>盛開：<strong>6月中旬</strong>（正值入住期！）<br>明治洋館庭園中逾百種玫瑰競相盛放。</p>
     </div>
-    <div class="flower-card">
-      <h4>🌺 惠山（えさん）— 杜鵑</h4>
-      <p>盛開時期：<strong>6月上旬</strong><br>函館近郊惠山火山丘陵，漫山遍野杜鵑花海，視野遼闊壯美。</p>
+    <div class="hi-flower-card">
+      <h4>🌺 惠山 — 杜鵑</h4>
+      <p>盛開：<strong>6月上旬</strong><br>函館近郊火山丘陵，漫山遍野花海，視野遼闊。</p>
     </div>
-    <div class="flower-card">
+    <div class="hi-flower-card">
       <h4>🪷 大沼國定公園 — 睡蓮</h4>
-      <p>盛開時期：<strong>6月下旬</strong><br>大沼湖面點點白蓮，映照駒ヶ岳火山倒影，如詩如畫。</p>
+      <p>盛開：<strong>6月下旬</strong><br>大沼湖面白蓮映照駒ヶ岳倒影，如詩如畫。</p>
     </div>
   </div>
-  <p style="margin-top:12px;font-size:.85rem;color:var(--gray)">🗓 我們入住時間 6/19–6/21，舊英國領事館玫瑰正值盛放期，值得安排前往！</p>
-</div>
 
-<!-- Links -->
-<div class="rest-links" style="margin-top:8px;margin-bottom:32px">
-  <a class="rest-link-btn" style="background:#2d6a4f;color:#fff"
-    href="https://www.ho-noguchi.jp/hakodate/" target="_blank">🌐 官方網站</a>
-  <a class="rest-link-btn" style="background:#4285F4;color:#fff"
-    href="https://www.google.com/maps/place/望楼NOGUCHI函館" target="_blank">📍 Google Maps</a>
-  <a class="rest-link-btn" style="background:#003580;color:#fff"
-    href="https://www.booking.com" target="_blank">📋 Booking.com 訂單</a>
-</div>
+  <!-- ── 餐飲介紹 ── -->
+  <div class="hi-section-label">🍽 餐飲介紹</div>
+  <div style="padding:0 20px 4px">
+    <p style="font-size:.88rem;color:#444;line-height:1.75;margin:0 0 16px">
+      料理的根基在於「<strong>地・美・惠</strong>」——以函館與道南青函地區當季食材為主軸，精心構築每一道兼具視覺與味覺之美的原創料理。
+    </p>
+
+    <!-- 夏季主圖 -->
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:6px;border-radius:10px;overflow:hidden;margin-bottom:16px">
+      <img src="https://www.bourou-hakodate.com/noguchi-cms/wp-content/uploads/2026/06/ae8c57c0b364dfa5b44385fc3d18d9b4.png"
+           style="width:100%;height:180px;object-fit:cover" alt="夏季會席主菜">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <img src="https://www.bourou-hakodate.com/noguchi-cms/wp-content/uploads/2026/06/ed0ab45dd73dd282113099699cb21cb0.png"
+             style="width:100%;height:87px;object-fit:cover" alt="夏季會席">
+        <img src="https://www.bourou-hakodate.com/noguchi-cms/wp-content/uploads/2026/06/5b04537a98fa5b0a4f9d896aea84f643.png"
+             style="width:100%;height:87px;object-fit:cover" alt="夏季會席">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <img src="https://www.bourou-hakodate.com/noguchi-cms/wp-content/uploads/2026/06/3573a0a58114f4fec108286d8d45d3a7.png"
+             style="width:100%;height:87px;object-fit:cover" alt="夏季會席">
+        <img src="https://www.bourou-hakodate.com/noguchi-cms/wp-content/uploads/2019/03/8084c4a781f0f9ffcefbfa640847b31f.jpg"
+             style="width:100%;height:87px;object-fit:cover" alt="お造り">
+      </div>
+    </div>
+
+    <!-- 夏季菜單品書き -->
+    <div style="background:#0d1f14;border-radius:12px;padding:22px;margin-bottom:16px;color:#e8d9b0">
+      <div style="text-align:center;margin-bottom:18px">
+        <div style="font-size:.7rem;letter-spacing:.2em;color:#8ab89a;margin-bottom:4px">SUMMER KAISEKI · 2026</div>
+        <div style="font-size:1.1rem;font-weight:700;letter-spacing:.1em">夏季創作會席　品書</div>
+        <div style="font-size:.75rem;color:#8ab89a;margin-top:4px">和食料理長 高井 大樹</div>
+      </div>
+      <div style="border-top:1px solid #2a4030;padding-top:16px;display:flex;flex-direction:column;gap:14px">
+
+        <div style="display:grid;grid-template-columns:140px 1fr;gap:10px;align-items:start">
+          <div style="font-size:.78rem;font-weight:700;color:#c8a96e;letter-spacing:.03em;padding-top:2px">【湯之川夕涼】</div>
+          <div style="font-size:.8rem;line-height:1.65;color:#d5c9a8">
+            原創雞尾酒「海峽涼風」<br>
+            <span style="font-size:.73rem;color:#8ab89a">～途中加入「花之汽水」，享受味道的漸進變化～</span>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #1e3022"></div>
+
+        <div style="display:grid;grid-template-columns:140px 1fr;gap:10px;align-items:start">
+          <div style="font-size:.78rem;font-weight:700;color:#c8a96e;letter-spacing:.03em;padding-top:2px">【夏之迎盤】</div>
+          <div style="font-size:.8rem;line-height:1.7;color:#d5c9a8">
+            <span style="font-size:.72rem;color:#8ab89a;display:block;margin-bottom:4px">＜昆布清涼・燉煮濃醇・蔬菜清爽・磯貝芳香・北前鮮味・果實餘韻・夏日海潮＞　※請依序品嚐</span>
+            函館真昆布高湯墨魚素麵 ～佐刻昆布～<br>
+            牛頰肉番茄燉煮 ～附玉米麻糬～<br>
+            蔬菜高湯涼味凍<br>
+            磯螺（北海道產）旨煮<br>
+            北前蟹（江差町產）與夏番茄小格拉坦 ～大葉香氣～<br>
+            哈密瓜（北海道產）與生火腿白和<br>
+            海膽豆腐 ～豆乳風味～
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #1e3022"></div>
+
+        <div style="display:grid;grid-template-columns:140px 1fr;gap:10px;align-items:start">
+          <div style="font-size:.78rem;font-weight:700;color:#c8a96e;letter-spacing:.03em;padding-top:2px">【真昆布清湯】</div>
+          <div style="font-size:.8rem;line-height:1.7;color:#d5c9a8">
+            毛豆真丈 ～真昆布與鮪魚頭湯～<br>
+            燒茄子、節瓜、茗荷
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #1e3022"></div>
+
+        <div style="display:grid;grid-template-columns:140px 1fr;gap:10px;align-items:start">
+          <div style="font-size:.78rem;font-weight:700;color:#c8a96e;letter-spacing:.03em;padding-top:2px">【夏日生魚片】</div>
+          <div style="font-size:.8rem;line-height:1.7;color:#d5c9a8">
+            <span style="font-size:.72rem;color:#8ab89a;display:block;margin-bottom:4px">＜五種各附香氣與餘韻＞　※請依序品嚐</span>
+            鰹魚 ～山葵・燻製鹽～<br>
+            馬頭鯛（津輕海峽）燒霜造 ～原味～<br>
+            本鮪魚（津輕海峽）～白醬油慕斯～<br>
+            香草佐曾以（噴火灣）義式薄切 ～原味～<br>
+            蝦夷鮑魚（北海道）～燻製醬油・山葵～
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #1e3022"></div>
+
+        <div style="display:grid;grid-template-columns:140px 1fr;gap:10px;align-items:start">
+          <div style="font-size:.78rem;font-weight:700;color:#c8a96e;letter-spacing:.03em;padding-top:2px">【夏日魚料理】</div>
+          <div style="font-size:.8rem;line-height:1.7;color:#d5c9a8">
+            函館鮭魚（函館產）半生仕立<br>
+            ～白酒奶油醬汁～<br>
+            白蕪（北斗產）、白蘆筍
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #1e3022"></div>
+
+        <div style="display:grid;grid-template-columns:140px 1fr;gap:10px;align-items:start">
+          <div style="font-size:.78rem;font-weight:700;color:#c8a96e;letter-spacing:.03em;padding-top:2px">【大沼肉料理】</div>
+          <div style="font-size:.8rem;line-height:1.7;color:#d5c9a8">
+            大沼黑牛烤牛肉 ～三種風味～<br>
+            <span style="font-size:.75rem;color:#9ab8a0">檸檬鹽　／　沙利亞平洋蔥醬　／　水果沙拉醬</span><br>
+            夏季蔬菜烤物 ～佐馬鈴薯泥～
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #1e3022"></div>
+
+        <div style="display:grid;grid-template-columns:140px 1fr;gap:10px;align-items:start">
+          <div style="font-size:.78rem;font-weight:700;color:#c8a96e;letter-spacing:.03em;padding-top:2px">【道南收尾飯】</div>
+          <div style="font-size:.8rem;line-height:1.7;color:#d5c9a8">
+            品牌米「ふっくりんこ」釜炊飯<br>
+            鰤魚（函館產）粕汁 ～函館地酒「五稜」酒粕風味～<br>
+            南蠻味噌、西洋芹淺漬、紫蘇漬<br>
+            山葵昆布（登別「藤崎山葵園」）
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #1e3022"></div>
+
+        <div style="display:grid;grid-template-columns:140px 1fr;gap:10px;align-items:start">
+          <div style="font-size:.78rem;font-weight:700;color:#c8a96e;letter-spacing:.03em;padding-top:2px">【甜點・函館咖啡】</div>
+          <div style="font-size:.8rem;line-height:1.7;color:#d5c9a8">
+            青提杏仁豆腐　／　函館鹽蛋糕<br>
+            完熟番茄（北斗）冰淇淋 ～淋橄欖油～<br>
+            一口起司大福<br>
+            <span style="font-size:.75rem;color:#9ab8a0">飲品三選一：黑芝麻冷製拿鐵　／　函館美鈴咖啡（1932年創業）　／　紅茶</span>
+          </div>
+        </div>
+
+      </div>
+      <div style="margin-top:16px;font-size:.72rem;color:#5a7a60;text-align:center">
+        ※晚餐分兩輪：17:30 或 19:30　｜　※食材依時令與進貨狀況調整
+      </div>
+    </div>
+
+    <!-- 特色食材 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+      <div style="border-radius:10px;overflow:hidden;position:relative">
+        <img src="https://www.bourou-hakodate.com/noguchi-cms/wp-content/uploads/2019/03/8084c4a781f0f9ffcefbfa640847b31f.jpg"
+             style="width:100%;height:110px;object-fit:cover" alt="生魚片生け簀">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent);display:flex;align-items:flex-end;padding:10px">
+          <div>
+            <div style="color:#fff;font-size:.8rem;font-weight:700">🐟 現場生け簀お造り</div>
+            <div style="color:rgba(255,255,255,.8);font-size:.72rem">撈起即殺，新鮮直送餐桌</div>
+          </div>
+        </div>
+      </div>
+      <div style="border-radius:10px;overflow:hidden;position:relative">
+        <img src="https://www.bourou-hakodate.com/noguchi-cms/wp-content/uploads/2016/08/gohan.jpg"
+             style="width:100%;height:110px;object-fit:cover" alt="ふっくりんこ釜炊飯">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent);display:flex;align-items:flex-end;padding:10px">
+          <div>
+            <div style="color:#fff;font-size:.8rem;font-weight:700">🍚 ふっくりんこ釜炊飯</div>
+            <div style="color:rgba(255,255,255,.8);font-size:.72rem">三年蟬聯特A等級道南名米</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 連泊限定 -->
+    <div style="background:linear-gradient(135deg,#1a1200,#2a1f00);border-radius:10px;padding:14px 16px;margin-bottom:16px;border:1px solid #5a4010">
+      <div style="font-size:.78rem;font-weight:700;color:#d4a017;margin-bottom:6px">🏮 連泊限定・隱藏菜單</div>
+      <div style="font-size:.82rem;color:#d5c9a8;line-height:1.7">
+        <strong>佛跳牆「千年蒸」</strong>（中國福建傳統頂級湯品）<br>
+        <span style="font-size:.75rem;color:#9a8060">「連住2晚且兩晚皆享用晚餐」的房客專屬。以慢火長時間蒸製，鎖住層層鮮味。正是回頭客最念念不忘的一道。</span>
+      </div>
+    </div>
+
+    <!-- 朝食 -->
+    <div style="border-radius:10px;overflow:hidden;position:relative;margin-bottom:4px">
+      <img src="https://www.bourou-hakodate.com/noguchi-cms/wp-content/uploads/2023/09/66ae0ff9ddb3d23bde2b9de537770924.jpg"
+           style="width:100%;height:130px;object-fit:cover" alt="朝食">
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.55),transparent);display:flex;align-items:center;padding:16px">
+        <div>
+          <div style="color:#fff;font-size:.9rem;font-weight:700;margin-bottom:4px">🌅 早餐</div>
+          <div style="color:rgba(255,255,255,.85);font-size:.78rem;line-height:1.6;max-width:200px">料理長精選北海道食材，含季節迎賓飲品3種，從鍋物至甜點一應俱全的望楼原創早餐饗宴。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 連結 -->
+  <div class="hi-section-label">🔗 快速連結</div>
+  <div class="hi-links">
+    <a class="hi-link-btn" style="background:#2d6a4f"
+      href="https://www.ho-noguchi.jp/hakodate/" target="_blank">🌐 官方網站</a>
+    <a class="hi-link-btn" style="background:#4285F4"
+      href="https://www.google.com/maps/place/望楼NOGUCHI函館" target="_blank">📍 Google Maps</a>
+    <a class="hi-link-btn" style="background:#003580"
+      href="https://www.booking.com/hotel/jp/noguchi-hakodate.ja.html" target="_blank">📋 Booking.com</a>
+  </div>
+
+</div><!-- /.hi-hotel-card -->
 
 </div>
 
